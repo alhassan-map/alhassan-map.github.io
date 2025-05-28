@@ -7,6 +7,7 @@ body {
         margin: 0;
         padding: 0; 
         height: 100vh;
+        font-family: 'Source Code Pro', monospace;
    }
 
    #container {
@@ -38,12 +39,125 @@ body {
   
       #fly-button {
         position: absolute;
-        top: 10px;
-        right: 10px;
-        background: white;
+        bottom: 6vh;
+        right: 4vw;
+        background: black;
+        color: white;
         padding: 10px;
-        z-index: 10;
+        z-index: 30;
         cursor: pointer;
+      }
+
+      #back-button {
+        position: absolute;
+        bottom: 6vh;
+        right: 4vw;
+        background: black;
+        color: white;
+        padding: 10px;
+        z-index: 30;
+        cursor: pointer;
+      }
+
+      #zoomout-text {
+        position: absolute;
+        top: 4vh;
+        right: 2vw;
+        height: 92vh;
+        width: 35vw;
+        background: rgba(255, 255, 255, 0.95);
+        color: #333;
+        z-index: 12;
+        pointer-events: none; /* allows clicking through to map */
+        display: block;
+        opacity:1;
+        transition: opacity 1s ease-in-out;
+      }
+
+      #zoomout-text p {
+        font-family: 'Source Code Pro', monospace !important;
+        font-weight: 300 !important;
+        font-style: italic !important;
+        font-size: 0.95em !important;
+        line-height: 1.6;
+        color: #333 !important;
+        margin: 1.7em;
+      }
+ 
+      #zoomin-text {
+        position: absolute;
+        top: 30vh;
+        right: 2vw;
+        height: 66vh;
+        width: 28vw;
+        background: #f4ebe0a3;
+        color: #333;
+        z-index: 12;
+        pointer-events: none; /* allows clicking through to map */
+        display: block;
+        opacity:1;
+        transition: opacity 1s ease-in-out;
+      }
+
+      #zoomin-text p {
+        font-family: 'Source Code Pro', monospace !important;
+        font-weight: 300 !important;
+        font-style: italic !important;
+        font-size: 0.87em !important;
+        line-height: 1.6;
+        color: #333 !important;
+        margin: 1.7em;
+      }  
+
+      .toggle-button {
+        position: absolute;
+        top: 15vh;
+        right: 3vw;
+        z-index: 1500;
+        width: 30px;
+        height: 30px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        opacity: 1;
+        transition: opacity 0.3s ease;
+        display: none; /* initially hidden */
+      }
+
+      #toggle-zoomin,
+      #toggle-line {
+        transition: opacity 0.3s ease;
+      }
+
+      #toggle-line {
+        opacity: 1;
+        position: absolute;
+        width: 2px;
+        background: repeating-linear-gradient(
+          to bottom,
+          black,
+          black 4px,
+          transparent 4px,
+          transparent 8px
+        );
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+      }
+    
+      #zoomin-text {
+        transition: opacity 0.4s ease;
+      }
+    
+      #zoomin-text.hidden {
+        opacity: 0;
+        pointer-events: none;
+      }
+      
+      #map.active ~ #zoomout-text {
+        display: none;
       }
       
 #corner-gradient {
@@ -64,7 +178,7 @@ body {
                         radial-gradient(circle at bottom left, rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, 0) 60%);
     -webkit-mask-composite: add;
     mask-image: radial-gradient(circle at 10% -25%, rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, 0) 25%),
-                 radial-gradient(circle at bottom left, rgba(0, 0, 0, 1) 15%, rgba(0, 0, 0, 0) 25%);
+                 radial-gradient(circle at bottom left, rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, 0) 35%);
     mask-composite: add;
   
     /* These help the effect stretch properly */
@@ -72,6 +186,7 @@ body {
     mask-size: 100% 100%;
     mask-repeat: no-repeat;
     opacity:0;
+    transition: opacity 1s ease-in-out;
   }
 
 hr {
@@ -95,12 +210,14 @@ hr {
   text-align: left;
 }
 
-.legenda {
-position: absolute;
-width: 20vw;
-bottom: 5%;
-left: 2%;
-z-index: 20;
+#legend {
+  position: absolute;
+  width: 25vw;
+  bottom: 5%;
+  left: 2%;
+  z-index: 20;
+  opacity:0;
+  transition: opacity 2s ease-in-out;
 }
 
 .sidebar a {
@@ -135,7 +252,7 @@ z-index: 20;
       color: white;
       border: none;
       z-index: 100;
-      width: 25vw;
+      width: 30vw;
       display:block;
 }
 /*
@@ -418,3 +535,24 @@ audio{
     cursor: url(../assets/maps/pata.svg), auto !important 
 }
 
+.mapboxgl-ctrl-zoom-in,
+.mapboxgl-ctrl-zoom-out {
+  display: none !important;
+}
+
+#custom-zoom-controls {
+  position: absolute;
+  top: 2.5vw;
+  right: 2.5vw;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+#custom-zoom-controls img {
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}

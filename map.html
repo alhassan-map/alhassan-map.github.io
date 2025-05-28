@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="../map.css">
   <!-- Google fonts-->
-  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;400;500;700&display=swap" rel="stylesheet">
 
   <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no"/>
 
@@ -24,209 +24,363 @@
 </head>
     
 <body>
-    
-<div id="mySidebar" class="sidebar">
-  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-    <div class="sidebar-content">
-        <p>This sound map offers an immersive experience of a global garment production site. It invites you to discover life and labour inside Jordan’s largest industrial zone for clothing production. </p>
-        <p>Approximately 35.000 factory workers sew garments for American sports and outdoor brands in the zone, and most of them are migrant workers from South Asia and Madagascar who live in dormitories beside the factories.</p>
-        <p>Wear your headphones (!) and click on the red points on the map to enter the sonic and visual universe of a globally connected, yet locally secluded industrial zone that remains inaccessible to outsiders. Get to know the everyday living environment of factory workers</p>
+        
+
+
+    <div id="zoomin-text">
+      <p>This sound map offers an immersive experience of a global garment production site. It invites you to discover life and labour inside Jordan’s largest industrial zone for clothing production. </p>
+      <p>Approximately 35.000 factory workers sew garments for American sports and outdoor brands in the zone, and most of them are migrant workers from South Asia and Madagascar who live in dormitories beside the factories.</p>
+      <p>Wear your headphones (!) and click on the red points on the map to enter the sonic and visual universe of a globally connected, yet locally secluded industrial zone that remains inaccessible to outsiders. Get to know the everyday living environment of factory workers</p>
     </div>
-</div>
 
+    <button id="toggle-zoomin" class="toggle-button"></button>
+    <div id="toggle-line"></div>
 
-<img src="../assets/logo.png" class="openbtn" onclick="openNav()"> 
-    
-<img src="../assets/legenda.png" class="legenda"> 
-    
+    <img src="../assets/logo.png" class="openbtn" onclick="openNav()"> 
+    <img src="../assets/legend.png" id="legend"> 
+        
+    <div id="fly-button">Zoom in</div>
+    <div id="back-button" style="display:none;">Zoom out</div>
+    <div id="container">
+      <div id="map_zoomout" class="mapbox"></div>
+      <div id="map" class="mapbox"></div>
+    </div>
 
-<div id="fly-button">Ir para vista detalhada</div>
-<div id="container">
-  <div id="map_zoomout" class="mapbox"></div>
-  <div id="map" class="mapbox"></div>
-</div>
+    <div id="custom-zoom-controls">
+      <img src="../assets/zoom_in.png" id="custom-zoom-in" alt="Zoom In" />
+      <img src="../assets/zoom_out.png" id="custom-zoom-out" alt="Zoom Out" />
+    </div>
 
-<div id="corner-gradient"></div>
-  
-  <script>
-    var geocoder = new MapboxGeocoder({
-       accessToken: mapboxgl.accessToken,
-       mapboxgl: mapboxgl
-    });
-    
-    var transformRequest = (url, resourceType) => {
-      var isMapboxRequest =
-        url.slice(8, 22) === "api.mapbox.com" ||
-        url.slice(10, 26) === "tiles.mapbox.com";
-      return {
-        url: isMapboxRequest
-          ? url.replace("?", "?pluginName=sheetMapper&")
-          : url
-      };
-    };
+    <div id="zoomout-text">
+      <p>
+        Jordan first became a major clothing production location when a 1996 US preferential trade
+        agreement guaranteed duty-free access to the American market for Made-in-Jordan
+        garments. Since then, multi-national garment producer firms have relocated production
+        facilities to Jordan’s industrial zones, importing production materials like cloth and
+        accessories from Asia to sew clothes in Jordanian factories. 75% of the approximately
+        80,000 workers fabricating clothing in Jordan’s factories are migrant workers, the vast
+        majority of whom are recruited on 3-year contracts from various countries in South Asia.
+        The foreign workers only receive part of their meagre salaries as cash wages, as money is
+        deducted for accommodation in dormitories and canteen food supplied by the employers.
+        Jordan’s industrial zones thus today resemble factory and dormitory cities that have
+        outgrown their original confines, featuring cosmopolitan marketplaces and living quarters
+        concentrating a diverse migrant population.
+        <br><br>
+        This sound map offers you an immersive experience of Al-Hassan, Jordan’s largest clothing
+        production zone <em>(read more about Jordan’s clothing industry)</em>.
+      </p>
+    </div>
+
+    <div id="corner-gradient"></div>
       
-    mapboxgl.accessToken = 'pk.eyJ1Ijoic2FyYWxnYyIsImEiOiJja2NjbTAyczkwNXA3Mnlscm5nbjN5OHZiIn0.yNcJkPBSugRlIeGkXDRlZw'; //Mapbox token 
+      <script>
+        var geocoder = new MapboxGeocoder({
+          accessToken: mapboxgl.accessToken,
+          mapboxgl: mapboxgl
+        });
+        
+        var transformRequest = (url, resourceType) => {
+          var isMapboxRequest =
+            url.slice(8, 22) === "api.mapbox.com" ||
+            url.slice(10, 26) === "tiles.mapbox.com";
+          return {
+            url: isMapboxRequest
+              ? url.replace("?", "?pluginName=sheetMapper&")
+              : url
+          };
+        };
+          
+        mapboxgl.accessToken = 'pk.eyJ1Ijoic2FyYWxnYyIsImEiOiJja2NjbTAyczkwNXA3Mnlscm5nbjN5OHZiIn0.yNcJkPBSugRlIeGkXDRlZw'; //Mapbox token 
 
-    
-    // Mapa 1 – estilo inicial
-    const map_zoomout = new mapboxgl.Map({
-      container: 'map_zoomout',
-      style: 'mapbox://styles/saralgc/cmb715u2n003401si8anj7195',
-      center: [36.02445,32.497],
-      zoom: 7.5,
-      interactive: false
-    });
+        
+        // Mapa 1 – estilo inicial
+        const map_zoomout = new mapboxgl.Map({
+          container: 'map_zoomout',
+          style: 'mapbox://styles/saralgc/cmb715u2n003401si8anj7195',
+          center: [37.1,31.4],
+          zoom: 6.8,
+          interactive: false
+        });
 
-    // Mapa 2 – estilo detalhado
-    const map = new mapboxgl.Map({
-      container: 'map',
-      style: 'mapbox://styles/saralgc/cma8ug1iu00i201s3ck8y339n',
-      center: [36.02445,32.49982],
-      zoom: 7.5
-    });
+        // Mapa 2 – estilo detalhado
+        const map = new mapboxgl.Map({
+          container: 'map',
+          style: 'mapbox://styles/saralgc/cma8ug1iu00i201s3ck8y339n',
+          center: [37.1,31.4],
+          zoom: 6.8
+        });
 
-    document.getElementById('fly-button').addEventListener('click', () => {
-    const target = [36.02445,32.49982]; 
-    const zoom = 14;
+        document.getElementById('fly-button').addEventListener('click', () => {
+        const target = [36.02445,32.49982]; 
+        const zoom = 14.5;
+        const speed = 2.5;
 
-    // Fly nos dois mapas para manter sincronia
-    map_zoomout.flyTo({ center: target, zoom: zoom });
-    map.flyTo({ center: target, zoom: zoom });
-    map.once('moveend', () => {
-        // Esconde o botão
-        document.getElementById('fly-button').style.display = 'none';
-        map.setMaxBounds(bounds); // ✅ aplicar somente após o flyTo terminar
-    });
+        // Fly nos dois mapas para manter sincronia
+        map_zoomout.flyTo({ center: target, zoom: zoom });
+        map.flyTo({ center: target, zoom: zoom, speed: speed });
+        map.once('moveend', () => {
+          document.getElementById('fly-button').style.display = 'none';
+          document.getElementById('back-button').style.display = 'block'; // Show back button
+          map.setMaxBounds(bounds);
+        });
 
-    // Espera um pouco antes de mostrar o segundo mapa
-    setTimeout(() => {
+        // Espera um pouco antes de mostrar o segundo mapa
+        setTimeout(() => {
+            const mapDiv = document.getElementById('map');
+            const legend = document.getElementById('legend');
+            const map_zoomoutDiv = document.getElementById('map_zoomout');
+            const cornerDiv = document.getElementById('corner-gradient');
+            const zoomOutText = document.getElementById('zoomout-text');
+            cornerDiv.style.opacity = 1;
+            mapDiv.style.opacity = 1;
+            legend.style.opacity = 1;
+            showZoominUI(); // Show zoomin info + toggle button
+            map_zoomoutDiv.style.opacity = 0;
+            zoomOutText.style.opacity = 0;
+            mapDiv.classList.add('active');
+        }, 0);
+      });
+
+      document.getElementById('back-button').addEventListener('click', () => {
+        const initialView = [37.1, 31.4];
+
+        map.flyTo({ center: initialView, zoom: 6.8 });
+        map_zoomout.flyTo({ center: initialView, zoom: 6.8 });
+
+        document.getElementById('back-button').style.display = 'none';
+        document.getElementById('fly-button').style.display = 'block';
+
+        // Restore map visibility
         const mapDiv = document.getElementById('map');
+        const legend = document.getElementById('legend');
         const map_zoomoutDiv = document.getElementById('map_zoomout');
         const cornerDiv = document.getElementById('corner-gradient');
-        cornerDiv.style.opacity = 1;
-        mapDiv.style.opacity = 1;
-        map_zoomoutDiv.style.opacity = 0;
-        mapDiv.classList.add('active');
-    }, 500);
-  });
+        const zoomOutText = document.getElementById('zoomout-text');
 
-    const bounds = [
-        [35.99145 , 32.485],// lng, lat Southwest coordinates
-        [36.06145, 32.515] // lng, lat Northeast coordinates
-    ];
-    /*
-    var map = new mapboxgl.Map({
-      container: 'map',
-      style: 'mapbox://styles/saralgc/cma8ug1iu00i201s3ck8y339n',
-      center: [36.02445,32.49982],
-      zoom: 14,
-      //minZoom: 0 ,
-      //maxZoom: 18,
-      maxBounds: bounds
-    });*/
+        cornerDiv.style.opacity = 0;
+        mapDiv.style.opacity = 0;
+        legend.style.opacity = 0;
+        map_zoomoutDiv.style.opacity = 1;
+        zoomOutText.style.opacity = 1;
+        hideZoominUI(); // Hide button + restore zoomin text
 
-    $(document).ready(function () {
-      $.ajax({
-        type: "GET",
-        url:'../assets/videos.csv',
-        dataType: "text",
-        success: function (csvData) { makeGeoJSON(csvData); }
+        mapDiv.classList.remove('active');
+        
+        // Remove bounds restriction
+        map.setMaxBounds(null);
+      });
+
+      // zoom in text button
+      const zoominText = document.getElementById("zoomin-text");
+      const toggleBtn = document.getElementById("toggle-zoomin");
+
+
+      // add images
+      const showIcon = "../assets/info.png";
+      const hideIcon = "../assets/close.png";
+
+      let infoHiddenByInteraction = false;
+
+      // Toggle button click
+
+      toggleBtn.addEventListener("click", () => {
+        zoominText.classList.toggle("hidden");
+        updateToggleIcon();
+
+        const line = document.getElementById("toggle-line");
+        if (zoominText.classList.contains("hidden")) {
+          line.style.opacity = "0";
+        } else {
+          // Recalculate and show line
+          const toggleRect = toggleBtn.getBoundingClientRect();
+          const textRect = zoominText.getBoundingClientRect();
+
+          const startY = toggleRect.bottom;
+          const endY = textRect.top;
+          const lineHeight = endY - startY;
+
+          line.style.top = `${startY}px`;
+          line.style.right = `${window.innerWidth - toggleRect.right + 10}px`; // adjust if needed
+          line.style.height = `${lineHeight}px`;
+          line.style.opacity = "1";
+        }
+      });
+
+      function updateToggleIcon() {
+        toggleBtn.style.backgroundImage = zoominText.classList.contains("hidden")
+          ? `url(${showIcon})`
+          : `url(${hideIcon})`;
+      }
+
+      function showZoominUI() {
+        zoominText.classList.remove("hidden");
+        toggleBtn.style.display = "block";
+        toggleBtn.style.opacity = "1";
+        infoHiddenByInteraction = false;
+        updateToggleIcon();
+
+        // Show and position dotted line
+        const toggleRect = toggleBtn.getBoundingClientRect();
+        const textRect = zoominText.getBoundingClientRect();
+        const line = document.getElementById("toggle-line");
+
+        const startY = toggleRect.bottom;
+        const endY = textRect.top;
+        const lineHeight = endY - startY;
+
+        line.style.top = `${startY}px`;
+        line.style.right = `${window.innerWidth - toggleRect.right + 10}px`; // adjust if needed
+        line.style.height = `${lineHeight}px`;
+        line.style.display = "block";
+        }
+
+        function hideZoominUI() {
+          zoominText.classList.remove("hidden");
+          toggleBtn.style.display = "none";
+          document.getElementById("toggle-line").style.display = "none";
+        }
+
+      function hideZoominTextOnce() {
+        if (!infoHiddenByInteraction) {
+          zoominText.classList.add("hidden");
+          updateToggleIcon();
+          infoHiddenByInteraction = true;
+        }
+      }
+
+      window.addEventListener('resize', () => {
+        if (!zoominText.classList.contains('hidden') && toggleBtn.style.display !== 'none') {
+          showZoominUI(); // recalculates line position
+        }
       });
 
 
-function makeGeoJSON(csvData) {
-        csv2geojson.csv2geojson(csvData, {
-          latfield: 'Latitude',
-          lonfield: 'Longitude',
-          delimiter: ','
-        }, function (err, data) {
-          
-          map.on('load', function () {
-              
-            map.addLayer({
-                'id': 'csvData',
-                'type': 'circle',
-                'source': {
-                    'type': 'geojson',
-                    'data': data
-                },
-                'paint': {
-                    'circle-radius': [
-                        'interpolate',
-                        ['linear'],
-                        ['zoom'],
-                        5, 2,      // zoom level 5 → radius 2px
-                        10, 7,     // zoom level 10 → radius 7px
-                        15, 10,     // zoom level 15 → radius 10px
-                        18, 25     // zoom level 18 → radius 25px
-                    ],
-                    'circle-color': '#EB6047',
-                    'circle-opacity': 1
-                }
-            });
+        // Listen for interaction on zoom-in map
+      map.on('click', hideZoominTextOnce);
+      map.on('zoomstart', hideZoominTextOnce);
+      map.on('dragstart', hideZoominTextOnce);
 
-            // When a click event occurs on a feature in the csvData layer, open a popup at the
-            // location of the feature, with description HTML from its properties.
-            
-            map.on('click', 'csvData', function (e) {
-              var coordinates = e.features[0].geometry.coordinates.slice();
-              var description =  `<div style="width:100%; aspect-ratio: 16 / 9;">
-                                    <iframe width="100%" height="100%" 
-                                    src="https://www.youtube.com/embed/` + e.features[0].properties.videoID + 
-                                    `?autoplay=1"frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
-                                    allowfullscreen>
-                                    </iframe>
-                                  </div>`
-                                + `<h2>` + e.features[0].properties.title + `</h2>`
-                                + `<p>` + e.features[0].properties.description + `</p>` ;
-                
-              while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-              coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-            }     
-              //add Popup to map
-              new mapboxgl.Popup()
-                .setLngLat(coordinates)
-                .setHTML(description)
-                .addTo(map);
-            }); 
+
+      // bounds
+        const bounds = [
+            [35.99145 , 32.485],// lng, lat Southwest coordinates
+            [36.06145, 32.515] // lng, lat Northeast coordinates
+        ];
+
+        //map data load
+
+        $(document).ready(function () {
+          $.ajax({
+            type: "GET",
+            url:'../assets/videos.csv',
+            dataType: "text",
+            success: function (csvData) { makeGeoJSON(csvData); }
           });
+
+
+    function makeGeoJSON(csvData) {
+            csv2geojson.csv2geojson(csvData, {
+              latfield: 'Latitude',
+              lonfield: 'Longitude',
+              delimiter: ','
+            }, function (err, data) {
+              
+              map.on('load', function () {
+                  
+                map.addLayer({
+                    'id': 'csvData',
+                    'type': 'circle',
+                    'source': {
+                        'type': 'geojson',
+                        'data': data
+                    },
+                    'paint': {
+                        'circle-radius': [
+                            'interpolate',
+                            ['linear'],
+                            ['zoom'],
+                            5, 2,      // zoom level 5 → radius 2px
+                            10, 7,     // zoom level 10 → radius 7px
+                            15, 10,     // zoom level 15 → radius 10px
+                            18, 25     // zoom level 18 → radius 25px
+                        ],
+                        'circle-color': '#EB6047',
+                        'circle-opacity': 1
+                    }
+                });
+
+                // When a click event occurs on a feature in the csvData layer, open a popup at the
+                // location of the feature, with description HTML from its properties.
+                
+                map.on('click', 'csvData', function (e) {
+                  var coordinates = e.features[0].geometry.coordinates.slice();
+                  var description =  `<div style="width:100%; aspect-ratio: 16 / 9;">
+                                        <iframe width="100%" height="100%" 
+                                        src="https://www.youtube.com/embed/` + e.features[0].properties.videoID + 
+                                        `?autoplay=1"frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+                                        allowfullscreen>
+                                        </iframe>
+                                      </div>`
+                                    + `<h2>` + e.features[0].properties.title + `</h2>`
+                                    + `<p>` + e.features[0].properties.description + `</p>` ;
+                    
+                  while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+                  coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+                }     
+                  //add Popup to map
+                  new mapboxgl.Popup()
+                    .setLngLat(coordinates)
+                    .setHTML(description)
+                    .addTo(map);
+                }); 
+              });
+            });
+          };    
         });
-      };    
-    });
+          
+      // ZOOM
+          map.addControl(new mapboxgl.NavigationControl(), 'top-right'); // disable map zoom when using scroll
+          map.on('click', (e) => {console.log(e);});
+          
+          document.getElementById("custom-zoom-in").addEventListener("click", () => {
+            map.zoomIn();
+          });
+
+          document.getElementById("custom-zoom-out").addEventListener("click", () => {
+            map.zoomOut();
+          });
+          
+      </script>
+
       
-   // ZOOM
-      map.addControl(new mapboxgl.NavigationControl(), 'top-right'); // disable map zoom when using scroll
-      map.on('click', (e) => {console.log(e);});
-      
-   </script>
-    
-<script>
-function openNav() {
-  document.getElementById("mySidebar").style.width = "27vw";
-}
-
-function closeNav() {
-  document.getElementById("mySidebar").style.width = "0";
-}
-
-</script>
-
-<script>
-var coll = document.getElementsByClassName("collapsible");
-var i;
-
-for (i = 0; i < coll.length; i++) {
-  coll[i].addEventListener("click", function() {
-    this.classList.toggle("active");
-    var content = this.nextElementSibling;
-    if (content.style.display === "block") {
-      content.style.display = "none";
-    } else {
-      content.style.display = "block";
+        
+    <script>
+    function openNav() {
+      document.getElementById("mySidebar").style.width = "27vw";
     }
-  });
-}
-</script>
+
+    function closeNav() {
+      document.getElementById("mySidebar").style.width = "0";
+    }
+
+    </script>
+
+    <script>
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+      coll[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.display === "block") {
+          content.style.display = "none";
+        } else {
+          content.style.display = "block";
+        }
+      });
+    }
+    </script>
 
           
 </body>
