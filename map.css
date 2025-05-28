@@ -1,0 +1,420 @@
+
+body {
+        background-image: url('../assets/background.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+        margin: 0;
+        padding: 0; 
+        height: 100vh;
+   }
+
+   #container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+  }
+
+  .mapbox {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transition: opacity 1.5s ease;
+  }
+
+    #map_zoomout {
+    pointer-events: auto;
+    }
+
+    #map {
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 1.5s ease;
+    }
+
+    #map.active {
+      pointer-events: auto;
+      }
+  
+      #fly-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: white;
+        padding: 10px;
+        z-index: 10;
+        cursor: pointer;
+      }
+      
+#corner-gradient {
+    background-image: url('../assets/background.png');
+    background-color: white;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    margin: 0;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    z-index: 2; /* behind  the legend but in fornt of the map*/ 
+    pointer-events: none; /* allow clicks on the map even if the map div is not on the top*/ 
+    -webkit-mask-image: radial-gradient(circle at top left, rgba(0, 0, 0, 1) 1%, rgba(0, 0, 0, 0) 20%),
+                        radial-gradient(circle at bottom left, rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, 0) 60%);
+    -webkit-mask-composite: add;
+    mask-image: radial-gradient(circle at 10% -25%, rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, 0) 25%),
+                 radial-gradient(circle at bottom left, rgba(0, 0, 0, 1) 15%, rgba(0, 0, 0, 0) 25%);
+    mask-composite: add;
+  
+    /* These help the effect stretch properly */
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    mask-repeat: no-repeat;
+    opacity:0;
+  }
+
+hr {
+  border-top: 1px dashed black !important;
+  border-bottom: 0px;
+}
+
+.sidebar {
+  height: 90% !important;
+  width: 0;
+  position: fixed;
+  z-index: 200;
+  top: 10%;
+  left: 0;
+  background-color: rgb(236, 226, 208);
+  overflow-x: hidden;
+  transition: 0.5s;
+  font-size: 17px;
+  color: black;
+  font-family: 'Source Code Pro', 'Courier New', 'Lucida Sans Typewriter', monospace;
+  text-align: left;
+}
+
+.legenda {
+position: absolute;
+width: 20vw;
+bottom: 5%;
+left: 2%;
+z-index: 20;
+}
+
+.sidebar a {
+  text-decoration: none;
+}
+
+.sidebar .closebtn {
+  position: absolute;
+  top: 5%;
+  font-size: 56px;
+  margin-left: auto;
+  z-index:200;
+}
+
+ .sidebar-content{ 
+    position: absolute;
+    top: 10%;
+    width: 80%;
+    left: 10%;
+}
+
+ .sidebar-content h2{ 
+    font-size: 18px;
+}
+
+.openbtn {
+      position: absolute !important;
+      font-size: 20px;
+      cursor: pointer;
+      background-color: transparent;
+      margin: 35px;
+      color: white;
+      border: none;
+      z-index: 100;
+      width: 25vw;
+      display:block;
+}
+/*
+@media only screen and (min-width: 800px) {
+    .openbtn {
+      display:none;
+    }
+    
+    img {
+        position: absolute;
+        top:30px;
+        left:4%;
+        z-index:300;
+        max-height: 300px;
+    }
+}*/
+
+
+p {
+    font-size: 13px;
+    color: black;
+    font-family: 'Source Code Pro', 'Courier New', 'Lucida Sans Typewriter', monospace;
+    line-height: 20px;
+    text-align: left;
+    /*position: absolute;*/
+    left: 30px;
+    bottom: 20px;
+}
+
+a {
+    font-size: 13px;
+    color: black;
+    font-family: 'Source Code Pro', 'Courier New', 'Lucida Sans Typewriter', monospace;
+    line-height: 20px;
+    text-align: left;
+    /*position: absolute;*/
+    left: 30px;
+    bottom: 20px;
+}
+
+p::selection{
+    background-color: black;
+    color: white;
+    
+}
+
+
+#content p{
+    display: none;
+    font-size: 15px !important;
+    color: white;
+    font-family: 'Source Code Pro', 'Courier New', 'Lucida Sans Typewriter', monospace;
+    line-height: 20px;
+    text-align: left;     
+    /*position: absolute;*/
+    left: 0px;
+    bottom: -200px;
+    background-color: black;
+    position: absolute;
+    font-weight: 200;
+    padding-left: 5%;
+    padding-right: 5%;
+    width: 90%;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    margin-bottom: 0px;
+}
+
+#content p::selection{
+    background-color: white;
+    color: black;
+    
+}
+
+a::selection{
+    background-color: black;
+    color: white;
+    
+}
+
+strong::selection{
+    background-color: black !important;
+    color: white !important;
+}
+
+h2 {
+    font-size: 20px;
+    /*color: #f18388;*/
+    color: black;
+    font-family: 'Source Code Pro', 'Courier New', 'Lucida Sans Typewriter', monospace;
+    line-height: 30px;
+    text-align: left !important;
+    text-transform: uppercase;
+    padding-left: 0px;
+    margin-left: 0px;
+}
+
+h2::selection{
+    background-color: black;
+    color: white;
+    
+}
+
+h3 {
+    font-size: 18px !important;
+    color: black !important;
+    background-color: transparent !important;
+    font-family: 'Source Code Pro', 'Courier New', 'Lucida Sans Typewriter', monospace;
+    line-height: 20px;
+    text-align: left !important;
+    /*position: absolute;*/
+    text-transform: capitalize;
+    padding-left: 0px !important;
+}
+
+h3::selection{
+    background-color: black;
+    color: white;
+    
+}
+
+strong::selection{
+    background-color: white;
+    color: black;
+    
+}
+
+    #map {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+    }
+
+    /* Popup styling */
+
+    .mapboxgl-popup {
+      padding-bottom: 15px;
+      max-width: 30% !important;
+    }
+
+    .mapboxgl-popup-close-button {
+      display: none;
+    }
+
+    .mapboxgl-popup-content {
+      font: 400 15px/22px 'Source Sans Pro', 'Helvetica Neue', Sans-serif;
+      padding: 10px !important;
+      width: auto;
+      background: white !important;
+      top: -2px;
+      margin-bottom: 5px;
+      box-shadow: none !important;
+    }
+
+    .mapboxgl-popup-content-wrapper {
+      padding: 1%;
+    }
+
+    .mapboxgl-popup-content h3 {
+      background: rgb(61, 59, 59);
+      text-align: center;
+      color: #ffffff;
+      margin: 0;
+      display: block;
+      padding: 15px;
+      font-weight: 700;
+      margin-top: -4px;
+    }
+
+    .mapboxgl-popup-content h4 {
+      margin: 0;
+      display: block;
+      padding: 10px 3px 10px 10px;
+      font-weight: 400;
+    }
+
+    .mapboxgl-container {
+      cursor: pointer;
+    }
+
+    .mapboxgl-popup-anchor-top>.mapboxgl-popup-content {
+      margin-top: 3px;
+    }
+    .mapboxgl-popup-anchor-bottom>.mapboxgl-popup-content {
+      margin-top: 3px;
+    }
+    .mapboxgl-popup-anchor-top>.mapboxgl-popup-tip {
+      border-bottom-color: #EB6047;
+    }
+.mapboxgl-popup-tip {
+    border-top-color: #EB6047 !important;
+    border-bottom-color: #EB6047 !important;
+}
+
+.mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip {
+    align-self: center;
+    border-top-color: #EB6047 !important;
+}
+
+
+.mapboxgl-ctrl-group button {
+    background-color: #fdfbea;
+    cursor: url(../assets/maps/pata.svg), auto !important , auto !important ;
+}
+
+.mapboxgl-popup-anchor-left .mapboxgl-popup-tip {
+    border-right-color: #EB6047 !important;
+    border-top-color: #00000000 !important;
+    border-bottom-color: #fff0 !important; !important;
+}
+
+.mapboxgl-popup-anchor-left {
+    left: 20px !important;
+    top: 10px !important;
+}
+
+.mapboxgl-popup-anchor-right {
+    left: -20px !important;
+    top: 10px !important;
+}
+
+.mapboxgl-popup-anchor-right .mapboxgl-popup-tip {
+    border-left-color: #EB6047 !important;
+    border-top-color: #00000000 !important;
+    border-bottom-color: #00000000 !important;
+}
+
+.mapboxgl-ctrl-compass{
+    display: none !important;
+}
+.mapboxgl-popup-anchor-bottom {
+    top: 200px;
+}
+
+.mapboxgl-popup-anchor-top {
+    top: 30px !important;
+    margin-top: 0px;
+}
+
+a.mapboxgl-ctrl-logo{
+  display: none !important;
+}
+
+.mapboxgl-ctrl-bottom-right{
+    display: none;
+}
+.mapboxgl-ctrl-top-right{
+    top: 3% !important;
+    right: 2.5% !important;
+}
+.mapboxgl-ctrl-top-left {
+    top: 30px !important;
+    left: 40px !important;
+}
+
+.mapboxgl-ctrl-group button {
+    background-color: black;
+}
+
+
+
+audio::-webkit-media-controls-panel, video::-webkit-media-controls-panel {
+    background-color: white;
+}
+
+audio{
+    background-color: white;
+    opacity: 1;
+    width: 100% !important;
+    height: 30px !important;
+}
+
+.controls button:hover, .controls button:focus {
+   color: black;
+}
+
+
+.mapboxgl-canvas-container { 
+    cursor: url(../assets/maps/pata.svg), auto !important 
+}
+

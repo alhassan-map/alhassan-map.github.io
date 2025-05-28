@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>Al Hassan Soundmap</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../map.css">
+  <!-- Google fonts-->
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
+
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no"/>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://api.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.js"></script>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.css" rel="stylesheet" />
+  <script src="https://npmcdn.com/csv2geojson@latest/csv2geojson.js"></script>
+  <script src="https://npmcdn.com/@turf/turf/turf.min.js"></script>
+  <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.0.0/mapbox-gl-geocoder.min.js"></script>
+  <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.0.0/mapbox-gl-geocoder.css" type="text/css" />
+  
+</head>
+    
+<body>
+    
+<div id="mySidebar" class="sidebar">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+    <div class="sidebar-content">
+        <p>This sound map offers an immersive experience of a global garment production site. It invites you to discover life and labour inside Jordan’s largest industrial zone for clothing production. </p>
+        <p>Approximately 35.000 factory workers sew garments for American sports and outdoor brands in the zone, and most of them are migrant workers from South Asia and Madagascar who live in dormitories beside the factories.</p>
+        <p>Wear your headphones (!) and click on the red points on the map to enter the sonic and visual universe of a globally connected, yet locally secluded industrial zone that remains inaccessible to outsiders. Get to know the everyday living environment of factory workers</p>
+    </div>
+</div>
+
+
+<img src="../assets/logo.png" class="openbtn" onclick="openNav()"> 
+    
+<img src="../assets/legenda.png" class="legenda"> 
+    
+
+<div id="fly-button">Ir para vista detalhada</div>
+<div id="container">
+  <div id="map_zoomout" class="mapbox"></div>
+  <div id="map" class="mapbox"></div>
+</div>
+
+<div id="corner-gradient"></div>
+  
+  <script>
+    var geocoder = new MapboxGeocoder({
+       accessToken: mapboxgl.accessToken,
+       mapboxgl: mapboxgl
+    });
+    
+    var transformRequest = (url, resourceType) => {
+      var isMapboxRequest =
+        url.slice(8, 22) === "api.mapbox.com" ||
+        url.slice(10, 26) === "tiles.mapbox.com";
+      return {
+        url: isMapboxRequest
+          ? url.replace("?", "?pluginName=sheetMapper&")
+          : url
+      };
+    };
+      
+    mapboxgl.accessToken = 'pk.eyJ1Ijoic2FyYWxnYyIsImEiOiJja2NjbTAyczkwNXA3Mnlscm5nbjN5OHZiIn0.yNcJkPBSugRlIeGkXDRlZw'; //Mapbox token 
+
+    
+    // Mapa 1 – estilo inicial
+    const map_zoomout = new mapboxgl.Map({
+      container: 'map_zoomout',
+      style: 'mapbox://styles/saralgc/cmb715u2n003401si8anj7195',
+      center: [36.02445,32.497],
+      zoom: 7.5,
+      interactive: false
+    });
+
+    // Mapa 2 – estilo detalhado
+    const map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/saralgc/cma8ug1iu00i201s3ck8y339n',
+      center: [36.02445,32.49982],
+      zoom: 7.5
+    });
+
+    document.getElementById('fly-button').addEventListener('click', () => {
+    const target = [36.02445,32.49982]; 
+    const zoom = 14;
+
+    // Fly nos dois mapas para manter sincronia
+    map_zoomout.flyTo({ center: target, zoom: zoom });
+    map.flyTo({ center: target, zoom: zoom });
+    map.once('moveend', () => {
+        // Esconde o botão
+        document.getElementById('fly-button').style.display = 'none';
+        map.setMaxBounds(bounds); // ✅ aplicar somente após o flyTo terminar
+    });
+
+    // Espera um pouco antes de mostrar o segundo mapa
+    setTimeout(() => {
+        const mapDiv = document.getElementById('map');
+        const map_zoomoutDiv = document.getElementById('map_zoomout');
+        const cornerDiv = document.getElementById('corner-gradient');
+        cornerDiv.style.opacity = 1;
+        mapDiv.style.opacity = 1;
+        map_zoomoutDiv.style.opacity = 0;
+        mapDiv.classList.add('active');
+    }, 500);
+  });
+
+    const bounds = [
+        [35.99145 , 32.485],// lng, lat Southwest coordinates
+        [36.06145, 32.515] // lng, lat Northeast coordinates
+    ];
+    /*
+    var map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/saralgc/cma8ug1iu00i201s3ck8y339n',
+      center: [36.02445,32.49982],
+      zoom: 14,
+      //minZoom: 0 ,
+      //maxZoom: 18,
+      maxBounds: bounds
+    });*/
+
+    $(document).ready(function () {
+      $.ajax({
+        type: "GET",
+        url:'../assets/videos.csv',
+        dataType: "text",
+        success: function (csvData) { makeGeoJSON(csvData); }
+      });
+
+
+function makeGeoJSON(csvData) {
+        csv2geojson.csv2geojson(csvData, {
+          latfield: 'Latitude',
+          lonfield: 'Longitude',
+          delimiter: ','
+        }, function (err, data) {
+          
+          map.on('load', function () {
+              
+            map.addLayer({
+                'id': 'csvData',
+                'type': 'circle',
+                'source': {
+                    'type': 'geojson',
+                    'data': data
+                },
+                'paint': {
+                    'circle-radius': [
+                        'interpolate',
+                        ['linear'],
+                        ['zoom'],
+                        5, 2,      // zoom level 5 → radius 2px
+                        10, 7,     // zoom level 10 → radius 7px
+                        15, 10,     // zoom level 15 → radius 10px
+                        18, 25     // zoom level 18 → radius 25px
+                    ],
+                    'circle-color': '#EB6047',
+                    'circle-opacity': 1
+                }
+            });
+
+            // When a click event occurs on a feature in the csvData layer, open a popup at the
+            // location of the feature, with description HTML from its properties.
+            
+            map.on('click', 'csvData', function (e) {
+              var coordinates = e.features[0].geometry.coordinates.slice();
+              var description =  `<div style="width:100%; aspect-ratio: 16 / 9;">
+                                    <iframe width="100%" height="100%" 
+                                    src="https://www.youtube.com/embed/` + e.features[0].properties.videoID + 
+                                    `?autoplay=1"frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowfullscreen>
+                                    </iframe>
+                                  </div>`
+                                + `<h2>` + e.features[0].properties.title + `</h2>`
+                                + `<p>` + e.features[0].properties.description + `</p>` ;
+                
+              while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+              coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+            }     
+              //add Popup to map
+              new mapboxgl.Popup()
+                .setLngLat(coordinates)
+                .setHTML(description)
+                .addTo(map);
+            }); 
+          });
+        });
+      };    
+    });
+      
+   // ZOOM
+      map.addControl(new mapboxgl.NavigationControl(), 'top-right'); // disable map zoom when using scroll
+      map.on('click', (e) => {console.log(e);});
+      
+   </script>
+    
+<script>
+function openNav() {
+  document.getElementById("mySidebar").style.width = "27vw";
+}
+
+function closeNav() {
+  document.getElementById("mySidebar").style.width = "0";
+}
+
+</script>
+
+<script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>
+
+          
+</body>
+
+</html>
