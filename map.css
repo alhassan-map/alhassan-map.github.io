@@ -65,7 +65,7 @@ body {
         right: 2vw;
         height: 92vh;
         width: 35vw;
-        background: rgba(255, 255, 255, 0.95);
+        background: #f1f2eddf;
         color: #333;
         z-index: 12;
         pointer-events: none; /* allows clicking through to map */
@@ -95,7 +95,6 @@ body {
         z-index: 12;
         pointer-events: none; /* allows clicking through to map */
         display: block;
-        opacity:1;
         transition: opacity 1s ease-in-out;
       }
 
@@ -112,10 +111,10 @@ body {
       .toggle-button {
         position: absolute;
         top: 15vh;
-        right: 3vw;
+        right: 2.5vw;
         z-index: 1500;
-        width: 30px;
-        height: 30px;
+        width: 32px;
+        height: 32px;
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
@@ -127,23 +126,7 @@ body {
         display: none; /* initially hidden */
       }
 
-      #toggle-zoomin,
-      #toggle-line {
-        transition: opacity 0.3s ease;
-      }
-
-      #toggle-line {
-        opacity: 1;
-        position: absolute;
-        width: 2px;
-        background: repeating-linear-gradient(
-          to bottom,
-          black,
-          black 4px,
-          transparent 4px,
-          transparent 8px
-        );
-        pointer-events: none;
+      #toggle-zoomin {
         transition: opacity 0.3s ease;
       }
     
@@ -385,6 +368,7 @@ strong::selection{
       top: 0;
       bottom: 0;
       width: 100%;
+      transition: opacity 1s ease-in-out;
     }
 
     /* Popup styling */
@@ -392,6 +376,7 @@ strong::selection{
     .mapboxgl-popup {
       padding-bottom: 15px;
       max-width: 30% !important;
+      z-index: 100;
     }
 
     .mapboxgl-popup-close-button {

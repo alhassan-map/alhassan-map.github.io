@@ -34,13 +34,11 @@
     </div>
 
     <button id="toggle-zoomin" class="toggle-button"></button>
-    <div id="toggle-line"></div>
-
     <img src="../assets/logo.png" class="openbtn" onclick="openNav()"> 
     <img src="../assets/legend.png" id="legend"> 
         
-    <div id="fly-button">Zoom in</div>
-    <div id="back-button" style="display:none;">Zoom out</div>
+    <div id="fly-button">Sound Map</div>
+    <div id="back-button" style="display:none;">Back to intro</div>
     <div id="container">
       <div id="map_zoomout" class="mapbox"></div>
       <div id="map" class="mapbox"></div>
@@ -93,21 +91,22 @@
         mapboxgl.accessToken = 'pk.eyJ1Ijoic2FyYWxnYyIsImEiOiJja2NjbTAyczkwNXA3Mnlscm5nbjN5OHZiIn0.yNcJkPBSugRlIeGkXDRlZw'; //Mapbox token 
 
         
-        // Mapa 1 – estilo inicial
+        // Map 1 - zoom out style
         const map_zoomout = new mapboxgl.Map({
           container: 'map_zoomout',
-          style: 'mapbox://styles/saralgc/cmb715u2n003401si8anj7195',
+          style: 'mapbox://styles/saralgc/cmb9djs6000uw01pag0nmeme5',
           center: [37.1,31.4],
           zoom: 6.8,
           interactive: false
         });
 
-        // Mapa 2 – estilo detalhado
+        // Map 2 - zoom in style
         const map = new mapboxgl.Map({
           container: 'map',
           style: 'mapbox://styles/saralgc/cma8ug1iu00i201s3ck8y339n',
           center: [37.1,31.4],
-          zoom: 6.8
+          zoom: 6.8,
+          maxZoom: 17,
         });
 
         document.getElementById('fly-button').addEventListener('click', () => {
@@ -115,30 +114,31 @@
         const zoom = 14.5;
         const speed = 2.5;
 
-        // Fly nos dois mapas para manter sincronia
+        // Fly on both maps, keeping syncrony
         map_zoomout.flyTo({ center: target, zoom: zoom });
         map.flyTo({ center: target, zoom: zoom, speed: speed });
+        // Espera um pouco antes de mostrar o segundo mapa
+        document.getElementById('zoomout-text').style.opacity = 0;
         map.once('moveend', () => {
           document.getElementById('fly-button').style.display = 'none';
           document.getElementById('back-button').style.display = 'block'; // Show back button
           map.setMaxBounds(bounds);
         });
 
-        // Espera um pouco antes de mostrar o segundo mapa
+
         setTimeout(() => {
-            const mapDiv = document.getElementById('map');
-            const legend = document.getElementById('legend');
-            const map_zoomoutDiv = document.getElementById('map_zoomout');
-            const cornerDiv = document.getElementById('corner-gradient');
-            const zoomOutText = document.getElementById('zoomout-text');
-            cornerDiv.style.opacity = 1;
-            mapDiv.style.opacity = 1;
-            legend.style.opacity = 1;
-            showZoominUI(); // Show zoomin info + toggle button
-            map_zoomoutDiv.style.opacity = 0;
-            zoomOutText.style.opacity = 0;
-            mapDiv.classList.add('active');
-        }, 0);
+          const mapDiv = document.getElementById('map');
+          const legend = document.getElementById('legend');
+          const map_zoomoutDiv = document.getElementById('map_zoomout');
+          const cornerDiv = document.getElementById('corner-gradient');
+
+          cornerDiv.style.opacity = 1;
+          mapDiv.style.opacity = 1;
+          legend.style.opacity = 1;
+          showZoominUI(); // Show zoomin info + toggle button
+          map_zoomoutDiv.style.opacity = 0;
+          mapDiv.classList.add('active');
+        }, 2700);
       });
 
       document.getElementById('back-button').addEventListener('click', () => {
@@ -156,12 +156,14 @@
         const map_zoomoutDiv = document.getElementById('map_zoomout');
         const cornerDiv = document.getElementById('corner-gradient');
         const zoomOutText = document.getElementById('zoomout-text');
+       // const zoomInText = document.getElementById('zoomin-text');
 
         cornerDiv.style.opacity = 0;
         mapDiv.style.opacity = 0;
         legend.style.opacity = 0;
         map_zoomoutDiv.style.opacity = 1;
         zoomOutText.style.opacity = 1;
+        // zoomInText.style.opacity = 0;
         hideZoominUI(); // Hide button + restore zoomin text
 
         mapDiv.classList.remove('active');
@@ -186,24 +188,6 @@
       toggleBtn.addEventListener("click", () => {
         zoominText.classList.toggle("hidden");
         updateToggleIcon();
-
-        const line = document.getElementById("toggle-line");
-        if (zoominText.classList.contains("hidden")) {
-          line.style.opacity = "0";
-        } else {
-          // Recalculate and show line
-          const toggleRect = toggleBtn.getBoundingClientRect();
-          const textRect = zoominText.getBoundingClientRect();
-
-          const startY = toggleRect.bottom;
-          const endY = textRect.top;
-          const lineHeight = endY - startY;
-
-          line.style.top = `${startY}px`;
-          line.style.right = `${window.innerWidth - toggleRect.right + 10}px`; // adjust if needed
-          line.style.height = `${lineHeight}px`;
-          line.style.opacity = "1";
-        }
       });
 
       function updateToggleIcon() {
@@ -212,33 +196,23 @@
           : `url(${hideIcon})`;
       }
 
+      // Ensure zoomin UI is hidden on initial load
+      document.addEventListener("DOMContentLoaded", () => {
+        hideZoominUI(); // hide on load (zoom-out mode)
+      });
+
       function showZoominUI() {
         zoominText.classList.remove("hidden");
         toggleBtn.style.display = "block";
         toggleBtn.style.opacity = "1";
         infoHiddenByInteraction = false;
         updateToggleIcon();
+      }
 
-        // Show and position dotted line
-        const toggleRect = toggleBtn.getBoundingClientRect();
-        const textRect = zoominText.getBoundingClientRect();
-        const line = document.getElementById("toggle-line");
-
-        const startY = toggleRect.bottom;
-        const endY = textRect.top;
-        const lineHeight = endY - startY;
-
-        line.style.top = `${startY}px`;
-        line.style.right = `${window.innerWidth - toggleRect.right + 10}px`; // adjust if needed
-        line.style.height = `${lineHeight}px`;
-        line.style.display = "block";
-        }
-
-        function hideZoominUI() {
-          zoominText.classList.remove("hidden");
-          toggleBtn.style.display = "none";
-          document.getElementById("toggle-line").style.display = "none";
-        }
+      function hideZoominUI() {
+        zoominText.classList.add("hidden"); // Hide the text
+        toggleBtn.style.display = "none";   // Hide the toggle button
+      }
 
       function hideZoominTextOnce() {
         if (!infoHiddenByInteraction) {
@@ -247,13 +221,7 @@
           infoHiddenByInteraction = true;
         }
       }
-
-      window.addEventListener('resize', () => {
-        if (!zoominText.classList.contains('hidden') && toggleBtn.style.display !== 'none') {
-          showZoominUI(); // recalculates line position
-        }
-      });
-
+   
 
         // Listen for interaction on zoom-in map
       map.on('click', hideZoominTextOnce);
@@ -334,6 +302,156 @@
                     .addTo(map);
                 }); 
               });
+              
+              // ADDING ICONS AND TEXTS TO THE MAP
+              
+              // 1. ENTRANCE ICON
+                  map.loadImage('../assets/entrance.png', function(error, image) {
+                    if (error) throw error;
+                    if (!map.hasImage('custom-icon')) {
+                      map.addImage('custom-icon', image);
+                    }
+
+                    map.addLayer({
+                      id: 'entrance',
+                      type: 'symbol',
+                      source: {
+                        type: 'geojson',
+                        data: {
+                          type: 'FeatureCollection',
+                          features: [
+                            {
+                              type: 'Feature',
+                              geometry: {
+                                type: 'Point',
+                                coordinates: [36.019773, 32.499620]       
+                              }
+                            },
+                            {
+                              type: 'Feature',
+                              geometry: {
+                                type: 'Point',
+                                coordinates: [36.022815, 32.497503]
+                              }
+                            },
+                            {
+                              type: 'Feature',
+                              geometry: {
+                                type: 'Point',
+                                coordinates: [36.0382478, 32.5075051]
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      layout: {
+                        'icon-image': 'custom-icon',
+                        'icon-size': [
+                          'interpolate',
+                          ['linear'],
+                          ['zoom'],     // zoom level 5 → radius 2px
+                            6, 0.1,     // zoom level 10 → radius 7px
+                            15, 0.25,     // zoom level 15 → radius 10px
+                            18, 0.7    // zoom level 18 → radius 25px
+                        ],
+                        'icon-allow-overlap': true
+                      }
+                    });
+                  });
+              // 1. END
+
+              // 2. PLACE LABELS
+
+              const placeLabels = {
+                type: 'FeatureCollection',
+                features: [
+                  { type: 'Feature', properties: { title: 'Poultry traders', "anchor": "top-left", "offset": [1, -1]}, geometry: { type: 'Point', coordinates: [36.0241472, 32.5055748] }},
+                  { type: 'Feature', properties: { title: 'Fish vendors', "anchor": "top", "offset": [0, -2.5]}, geometry: { type: 'Point', coordinates: [36.0253275, 32.5062520] }},
+                  { type: 'Feature', properties: { title: 'Clothing and beauty salon', "anchor": "top", "offset": [0, -3.5]}, geometry: { type: 'Point', coordinates: [36.0217374, 32.5054057] }},
+                  { type: 'Feature', properties: { title: 'Phase II Market', "anchor": "right", "offset": [-1, 0]}, geometry: { type: 'Point', coordinates: [36.0183840, 32.5048516] }},
+                  { type: 'Feature', properties: { title: 'The Warehouse Quarter', "anchor": "top-left", "offset": [0, -2.2]}, geometry: { type: 'Point', coordinates: [36.032564, 32.506582] }},
+                  { type: 'Feature', properties: { title: 'Money Transfer Office', "anchor": "top-left", "offset": [-0.5, -2.5]}, geometry: { type: 'Point', coordinates: [36.0211240, 32.4997588] }},
+                  { type: 'Feature', properties: { title: 'Workers’ Centre', "anchor": "bottom", "offset": [0, 2.8]}, geometry: { type: 'Point', coordinates: [36.0295716, 32.5051489] }},
+                  { type: 'Feature', properties: { title: 'The Factory Canteen', "anchor": "top-left", "offset": [0, -2.2]}, geometry: { type: 'Point', coordinates: [36.0259886, 32.4999871] }},
+                  { type: 'Feature', properties: { title: 'End of Factory Shifts', "anchor": "top-left", "offset": [-0.5, -2.5]}, geometry: { type: 'Point', coordinates: [36.0236333, 32.5029417] }},
+                  { type: 'Feature', properties: { title: 'Rubina Hostels', "anchor": "right", "offset": [-1, 0]}, geometry: { type: 'Point', coordinates: [36.0192351, 32.4935061] }},
+                  { type: 'Feature', properties: { title: 'The Dormitory', "anchor": "top-left", "offset": [1, -0.5]}, geometry: { type: 'Point', coordinates: [36.0244020, 32.4961195] }},
+                  { type: 'Feature', properties: { title: 'Subcontracting Factory', "anchor": "top-left", "offset": [-0.5, -2.5]}, geometry: { type: 'Point', coordinates: [36.0233175, 32.4983430] }},
+                  { type: 'Feature', properties: { title: 'Exporting Factory', "anchor": "top", "offset": [0, -2.5]}, geometry: { type: 'Point', coordinates: [36.0299977, 32.4948314] }}
+                ]
+              };
+
+              map.addSource('place-labels', {
+                type: 'geojson',
+                data: placeLabels
+              });
+
+              map.addLayer({
+                id: 'place-labels',
+                type: 'symbol',
+                source: 'place-labels',
+                minzoom: 15,
+                maxzoom: 20,
+                layout: {
+                  'text-field': ['get', 'title'],
+                  'text-font': ['Source Code Pro Semibold'],
+                  'text-size': [
+                    'interpolate',
+                    ['linear'],
+                    ['zoom'],
+                    15, 16,
+                    18, 23
+                  ],
+                'text-anchor': ['get', 'anchor'],
+                'text-offset': ['get', 'offset'],
+                },
+                paint: {
+                'text-color': '#000000',
+                'text-halo-color': '#ffffff',
+                'text-halo-width': 3,
+                'text-halo-blur': 5
+              }
+              });
+              // 2. END
+
+              // 3. CRICKET LABEL
+              map.addSource('cricket-label', {
+                type: 'geojson',
+                data: {
+                  type: 'FeatureCollection',
+                  features: [{type: 'Feature', properties: {name: 'Cricket\nPitch'}, geometry: {type: 'Point', coordinates: [36.019614, 32.505617]}}
+                  ]
+                }
+              });
+
+              map.addLayer({
+                id: 'cricket-label-layer',
+                type: 'symbol',
+                source: 'cricket-label',
+                layout: {
+                  'text-field': ['get', 'name'],
+                  'text-font': ['Source Code Pro Light'],
+                  'text-size': [
+                    'interpolate',
+                    ['linear'],
+                    ['zoom'],
+                    14.5, 15,
+                    18, 27
+                  ],
+                  'text-anchor': 'center',
+                  'text-offset': [0, 0]
+                },
+                paint: {
+                  'text-color': '#000'
+                },
+                minzoom: 15.5,
+                maxzoom: 20
+              });
+
+
+              // 3. END
+
+
             });
           };    
         });
@@ -341,7 +459,7 @@
       // ZOOM
           map.addControl(new mapboxgl.NavigationControl(), 'top-right'); // disable map zoom when using scroll
           map.on('click', (e) => {console.log(e);});
-          
+
           document.getElementById("custom-zoom-in").addEventListener("click", () => {
             map.zoomIn();
           });
