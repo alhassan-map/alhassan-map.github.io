@@ -1,3 +1,9 @@
+$mobile: 480px;        /* Smartphones*/
+$tablet: 768px;        /* Standard iPad/tablet width */
+$notebook: 1000px;     /* Mid-size laptops (like 13"–14") */
+$desktop: 1500px;      /* Large notebooks / 1080p screens */
+$wide: 1900px;         /* 2K/4K displays or ultrawide */
+
 
 body {
         background-image: url('../assets/background.png');

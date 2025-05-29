@@ -90,13 +90,23 @@
           
         mapboxgl.accessToken = 'pk.eyJ1Ijoic2FyYWxnYyIsImEiOiJja2NjbTAyczkwNXA3Mnlscm5nbjN5OHZiIn0.yNcJkPBSugRlIeGkXDRlZw'; //Mapbox token 
 
+        let zoom_intro;
+        if (window.innerWidth < 600) { 
+          zoom_intro = 5.4; 
+        } else if (window.innerWidth < 1024) { 
+          zoom_intro = 6;
+        } else if (window.innerWidth < 1800) {
+          zoom_intro = 6.8;
+        } else {
+          zoom_intro = 7.5;
+        }
         
         // Map 1 - zoom out style
         const map_zoomout = new mapboxgl.Map({
           container: 'map_zoomout',
           style: 'mapbox://styles/saralgc/cmb9djs6000uw01pag0nmeme5',
           center: [37.1,31.4],
-          zoom: 6.8,
+          zoom: zoom_intro,
           interactive: false
         });
 
@@ -105,14 +115,37 @@
           container: 'map',
           style: 'mapbox://styles/saralgc/cma8ug1iu00i201s3ck8y339n',
           center: [37.1,31.4],
-          zoom: 6.8,
+          zoom: zoom_intro,
           maxZoom: 17,
         });
 
         document.getElementById('fly-button').addEventListener('click', () => {
         const target = [36.02445,32.49982]; 
-        const zoom = 14.5;
-        const speed = 2.5;
+        //const zoom = 14.5;
+        //const speed = 2.5;
+
+        //DEFINE ZOOM IN FUNCTION OF SCREEN SIZE
+        let zoom;
+        let speed;
+        
+        if (window.innerWidth < 600) {
+          // Smartphones
+          zoom = 10.5;
+          speed = 1.5;
+        } else if (window.innerWidth < 1024) {
+          // Tablets
+          zoom = 12.5;
+          speed = 2.5;
+        } else if (window.innerWidth < 1800) {
+          // Notebooks
+          zoom = 14.5;
+          speed = 2.5;
+        } else {
+          // Desktops
+          zoom = 15.2;
+          speed = 3.5;
+        }
+         //END
 
         // Fly on both maps, keeping syncrony
         map_zoomout.flyTo({ center: target, zoom: zoom });
