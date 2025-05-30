@@ -95,10 +95,12 @@
           zoom_intro = 5.4; 
         } else if (window.innerWidth < 1024) { 
           zoom_intro = 6;
-        } else if (window.innerWidth < 1800) {
+        } else if (window.innerWidth < 1400) {
+          zoom_intro = 6.4;
+        } else if (window.innerWidth < 1600) {
           zoom_intro = 6.8;
         } else {
-          zoom_intro = 7.5;
+          zoom_intro = 7.7;
         }
         
         // Map 1 - zoom out style
@@ -513,6 +515,7 @@
     function closeNav() {
       document.getElementById("mySidebar").style.width = "0";
     }
+
 
     </script>
 
