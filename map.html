@@ -3,9 +3,10 @@
 
 <head>
   <meta charset="utf-8" />
+
   <title>Al Hassan Soundmap</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0", user-scalable="no">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="../map.css">
   <!-- Google fonts-->
@@ -30,23 +31,28 @@
     <div id="zoomin-text">
       <p>This sound map offers an immersive experience of a global garment production site. It invites you to discover life and labour inside Jordan’s largest industrial zone for clothing production. </p>
       <p>Approximately 35.000 factory workers sew garments for American sports and outdoor brands in the zone, and most of them are migrant workers from South Asia and Madagascar who live in dormitories beside the factories.</p>
-      <p>Wear your headphones (!) and click on the red points on the map to enter the sonic and visual universe of a globally connected, yet locally secluded industrial zone that remains inaccessible to outsiders. Get to know the everyday living environment of factory workers</p>
+      <p>Click on the red points on the map to enter the sonic and visual universe of a globally connected, yet locally secluded industrial zone that remains inaccessible to outsiders. Get to know the everyday living environment of factory workers.</p>
     </div>
 
-    <button id="toggle-zoomin" class="toggle-button"></button>
-    <img src="../assets/logo.png" class="openbtn" onclick="openNav()"> 
+    <img src="../assets/logo_out.png" id="logo_out"> 
+    <img src="../assets/logo_in.png" id="logo_in"> 
     <img src="../assets/legend.png" id="legend"> 
+    <img src="../assets/legend_zoomout.png" id="legend_zoomout"> 
         
-    <div id="fly-button">Sound Map</div>
-    <div id="back-button" style="display:none;">Back to intro</div>
+    <div id="fly-button">Al-Hassan<br><B>SOUND MAP</B></div>
     <div id="container">
       <div id="map_zoomout" class="mapbox"></div>
       <div id="map" class="mapbox"></div>
     </div>
 
     <div id="custom-zoom-controls">
-      <img src="../assets/zoom_in.png" id="custom-zoom-in" alt="Zoom In" />
-      <img src="../assets/zoom_out.png" id="custom-zoom-out" alt="Zoom Out" />
+        <img src="../assets/zoom_in.png" id="custom-zoom-in" alt="Zoom In" />
+        <img src="../assets/zoom_out.png" id="custom-zoom-out" alt="Zoom Out" />
+    </div>
+
+    <div class="iconbar-bottom">
+      <div id="back-button"><img src="../assets/back.png"></div>
+      <button id="toggle-info" class="toggle-button"></button>
     </div>
 
     <div id="zoomout-text">
@@ -58,15 +64,18 @@
         accessories from Asia to sew clothes in Jordanian factories. 75% of the approximately
         80,000 workers fabricating clothing in Jordan’s factories are migrant workers, the vast
         majority of whom are recruited on 3-year contracts from various countries in South Asia.
+      </p>
+      <p>
         The foreign workers only receive part of their meagre salaries as cash wages, as money is
         deducted for accommodation in dormitories and canteen food supplied by the employers.
         Jordan’s industrial zones thus today resemble factory and dormitory cities that have
         outgrown their original confines, featuring cosmopolitan marketplaces and living quarters
         concentrating a diverse migrant population.
-        <br><br>
-        This sound map offers you an immersive experience of Al-Hassan, Jordan’s largest clothing
-        production zone <em>(read more about Jordan’s clothing industry)</em>.
       </p>
+      <p>
+        <a href="https://www.invisibleworkers.org.uk/journal/notes-from-the-field-jordan-t4pgd" target="_blank" rel="noopener noreferrer">
+        Read More about Jordan’s clothing industry</a>
+       </p>
     </div>
 
     <div id="corner-gradient"></div>
@@ -121,95 +130,128 @@
           maxZoom: 17,
         });
 
+        //  ANIMATION ZOOM-OUT TO ZOOM-IN
         document.getElementById('fly-button').addEventListener('click', () => {
-        const target = [36.02445,32.49982]; 
-        //const zoom = 14.5;
-        //const speed = 2.5;
+                  const target = [36.02445,32.49982]; 
+                  //const zoom = 14.5;
+                  //const speed = 2.5;
 
-        //DEFINE ZOOM IN FUNCTION OF SCREEN SIZE
-        let zoom;
-        let speed;
-        
-        if (window.innerWidth < 600) {
-          // Smartphones
-          zoom = 10.5;
-          speed = 1.5;
-        } else if (window.innerWidth < 1024) {
-          // Tablets
-          zoom = 12.5;
-          speed = 2.5;
-        } else if (window.innerWidth < 1800) {
-          // Notebooks
-          zoom = 14.5;
-          speed = 2.5;
-        } else {
-          // Desktops
-          zoom = 15.2;
-          speed = 3.5;
-        }
-         //END
+                  //DEFINE ZOOM IN FUNCTION OF SCREEN SIZE
+                  let zoom;
+                  let speed;
+                  
+                  if (window.innerWidth < 600) {
+                    // Smartphones
+                    zoom = 10.5;
+                    speed = 2.5;
+                  } else if (window.innerWidth < 1024) {
+                    // Tablets
+                    zoom = 12.5;
+                    speed = 3.5;
+                  } else if (window.innerWidth < 1800) {
+                    // Notebooks
+                    zoom = 14.5;
+                    speed = 4.5;
+                  } else {
+                    // Desktops
+                    zoom = 15.2;
+                    speed = 35.5;
+                  }
+                  //END
 
-        // Fly on both maps, keeping syncrony
-        map_zoomout.flyTo({ center: target, zoom: zoom });
-        map.flyTo({ center: target, zoom: zoom, speed: speed });
-        // Espera um pouco antes de mostrar o segundo mapa
-        document.getElementById('zoomout-text').style.opacity = 0;
-        map.once('moveend', () => {
-          document.getElementById('fly-button').style.display = 'none';
-          document.getElementById('back-button').style.display = 'block'; // Show back button
-          map.setMaxBounds(bounds);
-        });
+                  //switch title logos
+                    document.getElementById('logo_out').style.display = 'none';
+
+                    //switch legends
+                    document.getElementById('legend_zoomout').style.opacity = 0;
+
+                    //show zoom controls
+                    document.getElementById('custom-zoom-controls').style.display = 'flex';
+                    
+
+                  // Fly on both maps, keeping syncrony
+                  map_zoomout.flyTo({ center: target, zoom: zoom });
+                  map.flyTo({ center: target, zoom: zoom, speed: speed });
+                  document.getElementById('fly-button').style.display = 'none';
+                  // Espera um pouco antes de mostrar o segundo mapa
+                  document.getElementById('zoomout-text').style.opacity = 0;
+                  map.once('moveend', () => {
+                    document.getElementById('back-button').style.display = 'block'; // Show back button
+                    document.getElementById('logo_in').style.display = 'block';
+                    map.setMaxBounds(bounds);
+                  });
 
 
-        setTimeout(() => {
-          const mapDiv = document.getElementById('map');
-          const legend = document.getElementById('legend');
-          const map_zoomoutDiv = document.getElementById('map_zoomout');
-          const cornerDiv = document.getElementById('corner-gradient');
+                  setTimeout(() => {
+                    const mapDiv = document.getElementById('map');
+                    const legend = document.getElementById('legend');
+                    const map_zoomoutDiv = document.getElementById('map_zoomout');
+                    const cornerDiv = document.getElementById('corner-gradient');
 
-          cornerDiv.style.opacity = 1;
-          mapDiv.style.opacity = 1;
-          legend.style.opacity = 1;
-          showZoominUI(); // Show zoomin info + toggle button
-          map_zoomoutDiv.style.opacity = 0;
-          mapDiv.classList.add('active');
-        }, 2700);
+                    cornerDiv.style.opacity = 1;
+                    mapDiv.style.opacity = 1;
+                    legend.style.opacity = 1;
+                    showZoominUI(); // Show zoomin info + toggle button
+                    map_zoomoutDiv.style.opacity = 0;
+                    mapDiv.classList.add('active');
+                  }, 2700);
       });
+      // END OF ANIMATION ZOOM-OUT TO ZOOM-IN
 
+
+
+      //  ANIMATION ZOOM-IN TO ZOOM-OUT
       document.getElementById('back-button').addEventListener('click', () => {
-        const initialView = [37.1, 31.4];
+                  const initialView = [37.1, 31.4];
 
-        map.flyTo({ center: initialView, zoom: 6.8 });
-        map_zoomout.flyTo({ center: initialView, zoom: 6.8 });
+                  map.flyTo({ center: initialView, zoom: zoom_intro });
+                  map_zoomout.flyTo({ center: initialView, zoom: zoom_intro });
 
-        document.getElementById('back-button').style.display = 'none';
-        document.getElementById('fly-button').style.display = 'block';
+                  document.getElementById('back-button').style.display = 'none';
+                  map.once('moveend', () => {
+                    document.getElementById('fly-button').style.display = 'block';
+                    document.getElementById('logo_out').style.display = 'block';
+                    document.getElementById('legend_zoomout').style.opacity = 1;
+                    
+                  });
 
-        // Restore map visibility
-        const mapDiv = document.getElementById('map');
-        const legend = document.getElementById('legend');
-        const map_zoomoutDiv = document.getElementById('map_zoomout');
-        const cornerDiv = document.getElementById('corner-gradient');
-        const zoomOutText = document.getElementById('zoomout-text');
-       // const zoomInText = document.getElementById('zoomin-text');
+                  // Restore map visibility
+                  const mapDiv = document.getElementById('map');
+                  const legend = document.getElementById('legend');
+                  const map_zoomoutDiv = document.getElementById('map_zoomout');
+                  const cornerDiv = document.getElementById('corner-gradient');
+                    const zoomOutText = document.getElementById('zoomout-text');
+                // const zoomInText = document.getElementById('zoomin-text');
 
-        cornerDiv.style.opacity = 0;
-        mapDiv.style.opacity = 0;
-        legend.style.opacity = 0;
-        map_zoomoutDiv.style.opacity = 1;
-        zoomOutText.style.opacity = 1;
-        // zoomInText.style.opacity = 0;
-        hideZoominUI(); // Hide button + restore zoomin text
+                  //switch title-logo
+                  document.getElementById('logo_in').style.display = 'none';
 
-        mapDiv.classList.remove('active');
-        
-        // Remove bounds restriction
-        map.setMaxBounds(null);
+
+                  //hide zoom controls
+                  document.getElementById('custom-zoom-controls').style.display = 'none';
+
+                  cornerDiv.style.opacity = 0;
+                  mapDiv.style.opacity = 0;
+                  legend.style.opacity = 0;
+                  map_zoomoutDiv.style.opacity = 1;
+                  zoomOutText.style.opacity = 1;
+                  // zoomInText.style.opacity = 0;
+                  hideZoominUI(); // Hide button + restore zoomin text
+
+                  mapDiv.classList.remove('active');
+                  
+                  // Remove bounds restriction
+                  map.setMaxBounds(null);
       });
+
+
+      //  END OF ANIMATION ZOOM-IN TO ZOOM-OUT
+
+      // ____________________________  ZOOM-IN MAP ELEMENTS  ____________________________  
 
       // zoom in text button
       const zoominText = document.getElementById("zoomin-text");
-      const toggleBtn = document.getElementById("toggle-zoomin");
+      const toggleBtn = document.getElementById("toggle-info");
 
 
       // add images
@@ -275,6 +317,7 @@
         $(document).ready(function () {
           $.ajax({
             type: "GET",
+            //url:'../assets/videos.csv',
             url:'../assets/videos.csv',
             dataType: "text",
             success: function (csvData) { makeGeoJSON(csvData); }
@@ -412,7 +455,8 @@
                   { type: 'Feature', properties: { title: 'Rubina Hostels', "anchor": "right", "offset": [-1, 0]}, geometry: { type: 'Point', coordinates: [36.0192351, 32.4935061] }},
                   { type: 'Feature', properties: { title: 'The Dormitory', "anchor": "top-left", "offset": [1, -0.5]}, geometry: { type: 'Point', coordinates: [36.0244020, 32.4961195] }},
                   { type: 'Feature', properties: { title: 'Subcontracting Factory', "anchor": "top-left", "offset": [-0.5, -2.5]}, geometry: { type: 'Point', coordinates: [36.0233175, 32.4983430] }},
-                  { type: 'Feature', properties: { title: 'Exporting Factory', "anchor": "top", "offset": [0, -2.5]}, geometry: { type: 'Point', coordinates: [36.0299977, 32.4948314] }}
+                  { type: 'Feature', properties: { title: 'Exporting Factory', "anchor": "top", "offset": [0, -2.5]}, geometry: { type: 'Point', coordinates: [36.0299977, 32.4948314] }},
+                  { type: 'Feature', properties: { title: 'Crossing    the Wall', "anchor": "right", "offset": [-0.5, -2]}, geometry: { type: 'Point', coordinates: [36.0280514, 32.507] }}
                 ]
               };
 
@@ -502,7 +546,143 @@
           document.getElementById("custom-zoom-out").addEventListener("click", () => {
             map.zoomOut();
           });
-          
+
+      //   ____________________________  END ZOOM-IN MAP ELEMENTS  ____________________________  
+
+      // ____________________________  ZOOM-OUT MAP ELEMENTS  ____________________________  
+
+      // 2. PLACE LABELS
+
+              // COORDINATES AND COUNTRIES LABELS
+              const countries = {
+                type: 'FeatureCollection',
+                features: [
+                  { type: 'Feature', properties: { title: 'EGYPT'}, geometry: { type: 'Point', coordinates: [33.8083491, 30.467345] }},
+                  { type: 'Feature', properties: { title: 'ISRAEL'}, geometry: { type: 'Point', coordinates: [34.8758067, 30.9866664] }},
+                  { type: 'Feature', properties: { title: 'JORDAN'}, geometry: { type: 'Point', coordinates: [36.3655701, 30.683549] }},
+                  { type: 'Feature', properties: { title: 'IRAQ'}, geometry: { type: 'Point', coordinates: [39.560184, 33.315916] }},
+                  { type: 'Feature', properties: { title: 'SAUDI\nARABIA'}, geometry: { type: 'Point', coordinates: [37.742222, 29.656151] }}, 
+                  { type: 'Feature', properties: { title: 'SYRIA'}, geometry: { type: 'Point', coordinates: [36.9178121, 33.338151] }},
+                  { type: 'Feature', properties: { title: 'LEB.'}, geometry: { type: 'Point', coordinates: [35.5965731, 33.47613] }},
+                  { type: 'Feature', properties: { title: 'PAL.\nWEST BANK'}, geometry: { type: 'Point', coordinates: [35.2808101, 32.126807] }},
+                  { type: 'Feature', properties: { title: 'PAL.\nGAZA'}, geometry: { type: 'Point', coordinates: [34.288398, 31.497934] }}
+                ]
+              };
+
+              // PRODUCTION SITES COORDINATES
+              const productionSites = {
+                type: 'FeatureCollection',
+                features: [
+                  { type: 'Feature', properties: { title: 'Tajammouat' }, geometry: { type: 'Point', coordinates: [35.9620331, 31.7727509] }},
+                  { type: 'Feature', properties: { title: 'Al-Hassan' }, geometry: { type: 'Point', coordinates: [35.84, 32.48] }},32.3401752,36.0668807,
+                  { type: 'Feature', properties: { title: 'Aqaba' }, geometry: { type: 'Point', coordinates: [35.1, 29.641131]}},
+                  { type: 'Feature', properties: { title: 'Mafraq' }, geometry: { type: 'Point', coordinates: [36.205618, 32.352574]}}, 
+                  { type: 'Feature', properties: { title: 'Dhulayl' }, geometry: { type: 'Point', coordinates: [36.555618, 32.192574]}}
+                ]
+              };
+
+              map_zoomout.on('load', () => {
+
+                //ADD CONTRIES LABELS TO THE MAP
+                  map_zoomout.addSource('countries', {
+                    type: 'geojson',
+                    data: countries
+                  });
+                  
+                  map_zoomout.addLayer({
+                    id: 'countries',
+                    type: 'symbol',
+                    source: 'countries',
+                    minzoom: 0,
+                    maxzoom: 15,
+                    layout: {
+                      'text-field': ['get', 'title'],
+                      'text-font': ['DIN Offc Pro Bold'],
+                      'text-size': [
+                        'interpolate',
+                        ['linear'],
+                        ['zoom'],
+                        0, 20,
+                        15, 23
+                      ],
+                      'text-anchor': 'center',
+                      'text-offset': [0, 0]   
+                    },
+                    paint: {
+                      'text-color': '#000000',
+                      'text-halo-color': '#ffffff',
+                      'text-halo-width': 2,
+                      'text-halo-blur': 0
+                    }
+                  });
+
+                  // Add the Production Sites source
+                  map_zoomout.addSource('productionSites', {
+                    type: 'geojson',
+                    data: productionSites
+                  });
+
+                  // Square marker load
+                  map_zoomout.loadImage('../assets/square-marker.png', (error, image) => {
+                    if (error) throw error;
+                    if (!map_zoomout.hasImage('square-icon')) {
+                      map_zoomout.addImage('square-icon', image);
+                    }
+
+                    // Add the square marker layer
+                    map_zoomout.addLayer({
+                      id: 'productionSites-layer',
+                      type: 'symbol',
+                      source: 'productionSites',
+                      layout: {
+                        'icon-image': 'square-icon',
+                        'icon-size': [
+                          'interpolate',
+                          ['linear'],
+                          ['zoom'],
+                          0, 0.2,
+                          15, 0.4
+                        ],
+                        'icon-allow-overlap': true,
+                        'text-field': ['get', 'title'],
+                        'text-font': ['Source Code Pro Italic'],
+                        'text-size': [
+                          'interpolate',
+                          ['linear'],
+                          ['zoom'],
+                          0, 12,
+                          15, 20
+                        ],
+                        'text-anchor': 'top',
+                        'text-offset': [0, -2],
+                        'text-allow-overlap': true
+                      },
+                      paint: {
+                        'text-color': '#000000',
+                        'text-halo-color': '#ffffff',
+                        'text-halo-width': 3,
+                        'text-halo-blur': 5
+                      }
+                    });
+                  });
+              });
+              // 2. END
+
+      //   ____________________________  END ZOOM-OUT MAP ELEMENTS  ____________________________  
+
+
+      // SCALE
+
+          // Add scale control to the map
+          const scale = new mapboxgl.ScaleControl({
+            maxWidth: 100,      // optional
+            unit: 'metric'      // or 'imperial'
+          });
+          map.addControl(scale);
+
+          // Optionally update scale units dynamically
+          // scale.setUnit('imperial');
+                  
       </script>
 
       
