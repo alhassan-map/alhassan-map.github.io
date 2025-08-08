@@ -32,14 +32,20 @@
       <p>This sound map offers an immersive experience of a global garment production site. It invites you to discover life and labour inside Jordan’s largest industrial zone for clothing production. </p>
       <p>Approximately 35.000 factory workers sew garments for American sports and outdoor brands in the zone, and most of them are migrant workers from South Asia and Madagascar who live in dormitories beside the factories.</p>
       <p>Click on the red points on the map to enter the sonic and visual universe of a globally connected, yet locally secluded industrial zone that remains inaccessible to outsiders. Get to know the everyday living environment of factory workers.</p>
+        <img src="../assets/logo_uni.png" alt="University of Nottingham" class="logos"/>
+        <img src="../assets/logo_uk.png" alt="UK Research and Innovation" class="logos" />
     </div>
 
     <img src="../assets/logo_out.png" id="logo_out"> 
     <img src="../assets/logo_in.png" id="logo_in"> 
     <img src="../assets/legend.png" id="legend"> 
     <img src="../assets/legend_zoomout.png" id="legend_zoomout"> 
-        
-    <div id="fly-button">Al-Hassan<br><B>SOUND MAP</B></div>
+    
+    <div id="fly-button" class="map-button">
+      <span class="title">Al-Hassan</span><br>
+      <span class="subtitle">sound  map</span>
+    </div>
+    
     <div id="container">
       <div id="map_zoomout" class="mapbox"></div>
       <div id="map" class="mapbox"></div>
@@ -53,6 +59,7 @@
     <div class="iconbar-bottom">
       <div id="back-button"><img src="../assets/back.png"></div>
       <button id="toggle-info" class="toggle-button"></button>
+      <button id="toggle-people" class="toggle-people"></button>
     </div>
 
     <div id="zoomout-text">
@@ -68,14 +75,17 @@
       <p>
         The foreign workers only receive part of their meagre salaries as cash wages, as money is
         deducted for accommodation in dormitories and canteen food supplied by the employers.
-        Jordan’s industrial zones thus today resemble factory and dormitory cities that have
-        outgrown their original confines, featuring cosmopolitan marketplaces and living quarters
-        concentrating a diverse migrant population.
+        Jordan’s industrial zones thus today resemble secluded factory and dormitory cities that
+        concentrate a diverse migrant population, and this sound map offers you an immersive
+        experience of Al-Hassan, Jordan’s largest clothing production zone
       </p>
       <p>
         <a href="https://www.invisibleworkers.org.uk/journal/notes-from-the-field-jordan-t4pgd" target="_blank" rel="noopener noreferrer">
         Read More about Jordan’s clothing industry</a>
        </p>
+       <br>
+        <img src="../assets/logo_uni.png" alt="University of Nottingham" class="logos"/>
+        <img src="../assets/logo_uk.png" alt="UK Research and Innovation" class="logos" />
     </div>
 
     <div id="corner-gradient"></div>
@@ -129,8 +139,22 @@
           zoom: zoom_intro,
           maxZoom: 17,
         });
+        
+            //PLACE ZOOM BUTTOM ON MAP
+            const coordinates =  [36.025, 32.60] ;
+            const flyButton = document.getElementById('fly-button');
+            console.log('flyButton:', flyButton); // <== Deve mostrar o botão no console
+
+            new mapboxgl.Marker({
+                element: flyButton,
+                anchor: 'bottom'
+            })
+            .setLngLat(coordinates)
+            .addTo(map_zoomout);
+
 
         //  ANIMATION ZOOM-OUT TO ZOOM-IN
+        
         document.getElementById('fly-button').addEventListener('click', () => {
                   const target = [36.02445,32.49982]; 
                   //const zoom = 14.5;
@@ -159,6 +183,10 @@
                   }
                   //END
 
+                  //hide place labels on zoom out map
+                  if (map_zoomout.getLayer('productionSites-layer')) {
+                    map_zoomout.setLayoutProperty('productionSites-layer', 'visibility', 'none');
+                  }
                   //switch title logos
                     document.getElementById('logo_out').style.display = 'none';
 
@@ -173,6 +201,7 @@
                   map_zoomout.flyTo({ center: target, zoom: zoom });
                   map.flyTo({ center: target, zoom: zoom, speed: speed });
                   document.getElementById('fly-button').style.display = 'none';
+                  //   markers.forEach(marker => marker.remove());
                   // Espera um pouco antes de mostrar o segundo mapa
                   document.getElementById('zoomout-text').style.opacity = 0;
                   map.once('moveend', () => {
@@ -197,7 +226,7 @@
                   }, 2700);
       });
       // END OF ANIMATION ZOOM-OUT TO ZOOM-IN
-
+      
 
 
       //  ANIMATION ZOOM-IN TO ZOOM-OUT
@@ -220,7 +249,10 @@
                   const legend = document.getElementById('legend');
                   const map_zoomoutDiv = document.getElementById('map_zoomout');
                   const cornerDiv = document.getElementById('corner-gradient');
-                    const zoomOutText = document.getElementById('zoomout-text');
+                  const zoomOutText = document.getElementById('zoomout-text');
+                  if (map_zoomout.getLayer('productionSites-layer')) {
+                    map_zoomout.setLayoutProperty('productionSites-layer', 'visibility', 'visible');
+                  }
                 // const zoomInText = document.getElementById('zoomin-text');
 
                   //switch title-logo
@@ -252,15 +284,20 @@
       // zoom in text button
       const zoominText = document.getElementById("zoomin-text");
       const toggleBtn = document.getElementById("toggle-info");
+      const togglePpl = document.getElementById("toggle-people");
 
 
-      // add images
+      // add images Info
       const showIcon = "../assets/info.png";
       const hideIcon = "../assets/close.png";
 
+      // add images People
+      const showIconPeople = "../assets/profile.png";
+      const hideIconPeople = "../assets/close.png";
+
       let infoHiddenByInteraction = false;
 
-      // Toggle button click
+      // Toggle button click INFO
 
       toggleBtn.addEventListener("click", () => {
         zoominText.classList.toggle("hidden");
@@ -272,6 +309,20 @@
           ? `url(${showIcon})`
           : `url(${hideIcon})`;
       }
+
+      // Toggle button click PEOPLE
+
+      togglePpl.addEventListener("click", () => {
+        zoominText.classList.toggle("hidden");
+        updateTogglePeople();
+      });
+
+      function updateTogglePeople() {
+        togglePpl.style.backgroundImage = zoominText.classList.contains("hidden")
+          ? `url(${showIconPeople})`
+          : `url(${hideIconPeople})`;
+      }
+
 
       // Ensure zoomin UI is hidden on initial load
       document.addEventListener("DOMContentLoaded", () => {
@@ -574,7 +625,7 @@
                 type: 'FeatureCollection',
                 features: [
                   { type: 'Feature', properties: { title: 'Tajammouat' }, geometry: { type: 'Point', coordinates: [35.9620331, 31.7727509] }},
-                  { type: 'Feature', properties: { title: 'Al-Hassan' }, geometry: { type: 'Point', coordinates: [35.84, 32.48] }},32.3401752,36.0668807,
+                  { type: 'Feature', properties: { title: '' }, geometry: { type: 'Point', coordinates: [36.0259886, 32.4999871]}},
                   { type: 'Feature', properties: { title: 'Aqaba' }, geometry: { type: 'Point', coordinates: [35.1, 29.641131]}},
                   { type: 'Feature', properties: { title: 'Mafraq' }, geometry: { type: 'Point', coordinates: [36.205618, 32.352574]}}, 
                   { type: 'Feature', properties: { title: 'Dhulayl' }, geometry: { type: 'Point', coordinates: [36.555618, 32.192574]}}
