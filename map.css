@@ -77,7 +77,7 @@ a:hover {
       .map-button::after {
         content: '';
         position: absolute;
-        bottom: -20px;
+        bottom: -14px;
         left: 50%;
         transform: translateX(-50%);
         border-width: 8px 8px 0 8px; /* triangle shape */
@@ -139,10 +139,10 @@ a:hover {
  
       #zoomin-text {
         position: absolute;
-        bottom: 10vh;
+        bottom: 7vh;
         right: 10vh;
-        height: 60vh;
-        width: 23vw;
+        height: 63vh;
+        width: 27vw;
         background: #f4ebe0a3;
         color: #333;
         z-index: 12;
@@ -358,6 +358,21 @@ hr {
   }
   #toggle-people {
     /*transition: opacity 0.3s ease; */
+  }
+
+  #toggle-people {
+    background-image: url('../assets/icon-people.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 40px;  /* adjust to match */
+    height: 40px;
+    border: none;
+    display: none; /* hidden by default */
+    cursor: pointer;
+  }
+
+  #people-text.hidden {
+    display: none;
   }
 
 .mapboxgl-ctrl-scale {

@@ -29,11 +29,16 @@
 
 
     <div id="zoomin-text">
-      <p>This sound map offers an immersive experience of a global garment production site. It invites you to discover life and labour inside Jordan’s largest industrial zone for clothing production. </p>
-      <p>Approximately 35.000 factory workers sew garments for American sports and outdoor brands in the zone, and most of them are migrant workers from South Asia and Madagascar who live in dormitories beside the factories.</p>
-      <p>Click on the red points on the map to enter the sonic and visual universe of a globally connected, yet locally secluded industrial zone that remains inaccessible to outsiders. Get to know the everyday living environment of factory workers.</p>
+      <p>This map invites you to discover life and labour in a global garment production site. It offers insight into the everyday rhythms, routines and rituals that characterize life in a dormitory migrant labour regime. </p>
+      <p>Approximately 30.000 factory workers sew garments for American sports and outdoor brands in Jordan’s largest industrial zone for clothing production. Over two thirds of them are migrant workers, recruited from Bangladesh, India, and other countries in South Asia; as well as from Madagascar. They live in dormitories beside the factories and spend most of their time inside or in the immediate surrounds of the walled industrial zone.</p>
+      <p>Click on the red points on the map to enter the sonic and visual universe of a globally connected, yet locally secluded industrial zone that usually remains inaccessible to outsiders.</p>
         <img src="../assets/logo_uni.png" alt="University of Nottingham" class="logos"/>
         <img src="../assets/logo_uk.png" alt="UK Research and Innovation" class="logos" />
+    </div>
+
+    <div id="people-text" class="hidden">
+      <p>This is the People popup content — you can put any text here about the workers, communities, etc.</p>
+      <img src="../assets/people_photo.jpg" alt="People image" style="width:100%; height:auto;" />
     </div>
 
     <img src="../assets/logo_out.png" id="logo_out"> 
@@ -125,7 +130,7 @@
         // Map 1 - zoom out style
         const map_zoomout = new mapboxgl.Map({
           container: 'map_zoomout',
-          style: 'mapbox://styles/saralgc/cmb9djs6000uw01pag0nmeme5',
+          style: 'mapbox://styles/saralgc/cme6yvb7r00rp01sc7fti6e9h',
           center: [37.1,31.4],
           zoom: zoom_intro,
           interactive: false
@@ -141,13 +146,14 @@
         });
         
             //PLACE ZOOM BUTTOM ON MAP
-            const coordinates =  [36.025, 32.60] ;
+            const coordinates =  [36.0259886, 32.4999871] ;
             const flyButton = document.getElementById('fly-button');
             console.log('flyButton:', flyButton); // <== Deve mostrar o botão no console
 
             new mapboxgl.Marker({
                 element: flyButton,
-                anchor: 'bottom'
+                anchor: 'bottom',
+                offset: [0, -30] // [x, y] in pixels
             })
             .setLngLat(coordinates)
             .addTo(map_zoomout);
@@ -284,16 +290,10 @@
       // zoom in text button
       const zoominText = document.getElementById("zoomin-text");
       const toggleBtn = document.getElementById("toggle-info");
-      const togglePpl = document.getElementById("toggle-people");
-
 
       // add images Info
       const showIcon = "../assets/info.png";
       const hideIcon = "../assets/close.png";
-
-      // add images People
-      const showIconPeople = "../assets/profile.png";
-      const hideIconPeople = "../assets/close.png";
 
       let infoHiddenByInteraction = false;
 
@@ -309,20 +309,6 @@
           ? `url(${showIcon})`
           : `url(${hideIcon})`;
       }
-
-      // Toggle button click PEOPLE
-
-      togglePpl.addEventListener("click", () => {
-        zoominText.classList.toggle("hidden");
-        updateTogglePeople();
-      });
-
-      function updateTogglePeople() {
-        togglePpl.style.backgroundImage = zoominText.classList.contains("hidden")
-          ? `url(${showIconPeople})`
-          : `url(${hideIconPeople})`;
-      }
-
 
       // Ensure zoomin UI is hidden on initial load
       document.addEventListener("DOMContentLoaded", () => {
@@ -613,7 +599,7 @@
                   { type: 'Feature', properties: { title: 'JORDAN'}, geometry: { type: 'Point', coordinates: [36.3655701, 30.683549] }},
                   { type: 'Feature', properties: { title: 'IRAQ'}, geometry: { type: 'Point', coordinates: [39.560184, 33.315916] }},
                   { type: 'Feature', properties: { title: 'SAUDI\nARABIA'}, geometry: { type: 'Point', coordinates: [37.742222, 29.656151] }}, 
-                  { type: 'Feature', properties: { title: 'SYRIA'}, geometry: { type: 'Point', coordinates: [36.9178121, 33.338151] }},
+                  { type: 'Feature', properties: { title: 'SYRIA'}, geometry: { type: 'Point', coordinates: [36.9178121, 32.938151] }},
                   { type: 'Feature', properties: { title: 'LEB.'}, geometry: { type: 'Point', coordinates: [35.5965731, 33.47613] }},
                   { type: 'Feature', properties: { title: 'PAL.\nWEST BANK'}, geometry: { type: 'Point', coordinates: [35.2808101, 32.126807] }},
                   { type: 'Feature', properties: { title: 'PAL.\nGAZA'}, geometry: { type: 'Point', coordinates: [34.288398, 31.497934] }}
@@ -648,7 +634,7 @@
                     maxzoom: 15,
                     layout: {
                       'text-field': ['get', 'title'],
-                      'text-font': ['DIN Offc Pro Bold'],
+                      'text-font': ['Oswald Stencil Bold'],
                       'text-size': [
                         'interpolate',
                         ['linear'],
@@ -704,8 +690,8 @@
                           0, 12,
                           15, 20
                         ],
-                        'text-anchor': 'top',
-                        'text-offset': [0, -2],
+                        'text-anchor': 'left',
+                        'text-offset': [1, 0],
                         'text-allow-overlap': true
                       },
                       paint: {
