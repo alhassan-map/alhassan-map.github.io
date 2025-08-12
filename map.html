@@ -78,10 +78,10 @@
         majority of whom are recruited on 3-year contracts from various countries in South Asia.
       </p>
       <p>
-        The foreign workers only receive part of their meagre salaries as cash wages, as money is
+        The foreign workers only receive part of their meagre salaries as cash wages because money is
         deducted for accommodation in dormitories and canteen food supplied by the employers.
         Jordan’s industrial zones thus today resemble secluded factory and dormitory cities that
-        concentrate a diverse migrant population, and this sound map offers you an immersive
+        concentrate a diverse migrant population. This sound map offers you an immersive
         experience of Al-Hassan, Jordan’s largest clothing production zone
       </p>
       <p>
@@ -131,7 +131,7 @@
         const map_zoomout = new mapboxgl.Map({
           container: 'map_zoomout',
           style: 'mapbox://styles/saralgc/cme6yvb7r00rp01sc7fti6e9h',
-          center: [37.1,31.4],
+          center: [37.1,31.3],
           zoom: zoom_intro,
           interactive: false
         });
@@ -146,7 +146,7 @@
         });
         
             //PLACE ZOOM BUTTOM ON MAP
-            const coordinates =  [36.0259886, 32.4999871] ;
+            const coordinates =  [36.019838, 32.499705] ; 
             const flyButton = document.getElementById('fly-button');
             console.log('flyButton:', flyButton); // <== Deve mostrar o botão no console
 
@@ -162,7 +162,7 @@
         //  ANIMATION ZOOM-OUT TO ZOOM-IN
         
         document.getElementById('fly-button').addEventListener('click', () => {
-                  const target = [36.02445,32.49982]; 
+                  const target = [36.02645,32.49982]; 
                   //const zoom = 14.5;
                   //const speed = 2.5;
 
@@ -237,7 +237,7 @@
 
       //  ANIMATION ZOOM-IN TO ZOOM-OUT
       document.getElementById('back-button').addEventListener('click', () => {
-                  const initialView = [37.1, 31.4];
+                  const initialView = [37.1,31.3];
 
                   map.flyTo({ center: initialView, zoom: zoom_intro });
                   map_zoomout.flyTo({ center: initialView, zoom: zoom_intro });
@@ -480,15 +480,16 @@
               const placeLabels = {
                 type: 'FeatureCollection',
                 features: [
+                  { type: 'Feature', properties: { title: 'The Main\nEntrance', "anchor": "bottom", "offset": [0, -1]}, geometry: { type: 'Point', coordinates: [36.0201, 32.4999] }},
                   { type: 'Feature', properties: { title: 'Poultry traders', "anchor": "top-left", "offset": [1, -1]}, geometry: { type: 'Point', coordinates: [36.0241472, 32.5055748] }},
                   { type: 'Feature', properties: { title: 'Fish vendors', "anchor": "top", "offset": [0, -2.5]}, geometry: { type: 'Point', coordinates: [36.0253275, 32.5062520] }},
                   { type: 'Feature', properties: { title: 'Clothing and beauty salon', "anchor": "top", "offset": [0, -3.5]}, geometry: { type: 'Point', coordinates: [36.0217374, 32.5054057] }},
                   { type: 'Feature', properties: { title: 'Phase II Market', "anchor": "right", "offset": [-1, 0]}, geometry: { type: 'Point', coordinates: [36.0183840, 32.5048516] }},
                   { type: 'Feature', properties: { title: 'The Warehouse Quarter', "anchor": "top-left", "offset": [0, -2.2]}, geometry: { type: 'Point', coordinates: [36.032564, 32.506582] }},
-                  { type: 'Feature', properties: { title: 'Money Transfer Office', "anchor": "top-left", "offset": [-0.5, -2.5]}, geometry: { type: 'Point', coordinates: [36.0211240, 32.4997588] }},
-                  { type: 'Feature', properties: { title: 'Workers’ Centre', "anchor": "bottom", "offset": [0, 2.8]}, geometry: { type: 'Point', coordinates: [36.0295716, 32.5051489] }},
+                  { type: 'Feature', properties: { title: 'Money\nTransfer Office', "anchor": "left", "offset": [1, 0]}, geometry: { type: 'Point', coordinates: [36.0211240, 32.4997588] }},
+                  { type: 'Feature', properties: { title: 'Workers’\nCentre', "anchor": "top", "offset": [0, 1]}, geometry: { type: 'Point', coordinates: [36.0295716, 32.5051489] }},
                   { type: 'Feature', properties: { title: 'The Factory Canteen', "anchor": "top-left", "offset": [0, -2.2]}, geometry: { type: 'Point', coordinates: [36.0259886, 32.4999871] }},
-                  { type: 'Feature', properties: { title: 'End of Factory Shifts', "anchor": "top-left", "offset": [-0.5, -2.5]}, geometry: { type: 'Point', coordinates: [36.0236333, 32.5029417] }},
+                  { type: 'Feature', properties: { title: 'End of\nFactory Shifts', "anchor": "left", "offset": [1, 0]}, geometry: { type: 'Point', coordinates: [36.0236333, 32.5029417] }},
                   { type: 'Feature', properties: { title: 'Rubina Hostels', "anchor": "right", "offset": [-1, 0]}, geometry: { type: 'Point', coordinates: [36.0192351, 32.4935061] }},
                   { type: 'Feature', properties: { title: 'The Dormitory', "anchor": "top-left", "offset": [1, -0.5]}, geometry: { type: 'Point', coordinates: [36.0244020, 32.4961195] }},
                   { type: 'Feature', properties: { title: 'Subcontracting Factory', "anchor": "top-left", "offset": [-0.5, -2.5]}, geometry: { type: 'Point', coordinates: [36.0233175, 32.4983430] }},
@@ -610,11 +611,20 @@
               const productionSites = {
                 type: 'FeatureCollection',
                 features: [
-                  { type: 'Feature', properties: { title: 'Tajammouat' }, geometry: { type: 'Point', coordinates: [35.9620331, 31.7727509] }},
-                  { type: 'Feature', properties: { title: '' }, geometry: { type: 'Point', coordinates: [36.0259886, 32.4999871]}},
-                  { type: 'Feature', properties: { title: 'Aqaba' }, geometry: { type: 'Point', coordinates: [35.1, 29.641131]}},
-                  { type: 'Feature', properties: { title: 'Mafraq' }, geometry: { type: 'Point', coordinates: [36.205618, 32.352574]}}, 
-                  { type: 'Feature', properties: { title: 'Dhulayl' }, geometry: { type: 'Point', coordinates: [36.555618, 32.192574]}}
+                  { type: 'Feature', properties: { title: 'Tajammouat' }, geometry: { type: 'Point', coordinates: [35.979728, 31.868797] }},
+                  { type: 'Feature', properties: { title: '' }, geometry: { type: 'Point', coordinates: [36.019838, 32.499705]}},
+                  { type: 'Feature', properties: { title: 'Aqaba' }, geometry: { type: 'Point', coordinates: [35.028429, 29.598449]}},
+                  { type: 'Feature', properties: { title: 'Mafraq' }, geometry: { type: 'Point', coordinates: [36.266308, 32.381423]}}, 
+                  { type: 'Feature', properties: { title: 'Dhulayl' }, geometry: { type: 'Point', coordinates: [36.291064, 32.121074]}} 
+                ]
+              };
+
+              // PRODUCTION SITES COORDINATES
+              const portSites = {
+                type: 'FeatureCollection',
+                features: [
+                  { type: 'Feature', properties: { title: 'Haifa' }, geometry: { type: 'Point', coordinates: [35.008376, 32.817597]}},
+                  { type: 'Feature', properties: { title: '' }, geometry: { type: 'Point', coordinates: [34.976266, 29.467778]}} 
                 ]
               };
 
@@ -653,7 +663,57 @@
                     }
                   });
 
-                  // Add the Production Sites source
+                  //ADD PORTS LABELS TO THE MAP
+                  map_zoomout.addSource('portSites', {
+                    type: 'geojson',
+                    data: portSites
+                  });
+
+                  // Square marker load
+                  map_zoomout.loadImage('../assets/port.png', (error, image) => {
+                    if (error) throw error;
+                    if (!map_zoomout.hasImage('port-icon')) {
+                      map_zoomout.addImage('port-icon', image);
+                    }
+
+                    // Add the square marker layer
+                    map_zoomout.addLayer({
+                      id: 'portSites-layer',
+                      type: 'symbol',
+                      source: 'portSites',
+                      layout: {
+                        'icon-image': 'port-icon',
+                        'icon-size': [
+                          'interpolate',
+                          ['linear'],
+                          ['zoom'],
+                          0, 0.2,
+                          15, 0.4
+                        ],
+                        'icon-allow-overlap': true,
+                        'text-field': ['get', 'title'],
+                        'text-font': ['Source Code Pro Italic'],
+                        'text-size': [
+                          'interpolate',
+                          ['linear'],
+                          ['zoom'],
+                          0, 12,
+                          15, 20
+                        ],
+                        'text-anchor': 'left',
+                        'text-offset': [1, 0],
+                        'text-allow-overlap': true
+                      },
+                      paint: {
+                        'text-color': '#37445E',
+                        'text-halo-color': '#ffffff',
+                        'text-halo-width': 3,
+                        'text-halo-blur': 5
+                      }
+                    });
+                  });
+
+                  // ADD THE PRODUCTION SITES SOURCE
                   map_zoomout.addSource('productionSites', {
                     type: 'geojson',
                     data: productionSites
@@ -719,6 +779,17 @@
 
           // Optionally update scale units dynamically
           // scale.setUnit('imperial');
+
+          // Change the cursor to a pointer when the mouse is over the places layer.
+          map.on('mouseenter', 'csvData', () => {
+              map.getCanvas().style.cursor = 'pointer';
+          });
+      
+          // Change it back to a pointer when it leaves.
+          map.on('mouseleave', 'csvData', () => {
+              map.getCanvas().style.cursor = '';
+          });
+
                   
       </script>
 
