@@ -164,7 +164,7 @@ a:hover {
       #zoomin-text::after {
         content: "";
         position: absolute;
-        bottom: 18vh; /* push it outside bottom */
+        bottom: 20vh; /* push it outside bottom */
         right: -12px;   /* near bottom-right corner */
         width: 0;
         height: 0;
@@ -191,13 +191,47 @@ a:hover {
         height: 3vh !important;
         margin: 1em 2.5em;
       }
+
+        /* Celulares */
+        @media (max-width: 600px)  {
+            #zoomin-text {
+              position: absolute;
+              bottom: 15vh;
+              right: 0;
+              height: auto;
+              width: 100vw;
+              background: #f4ebe0;
+              color: #333;
+              z-index: 12;
+              /* pointer-events: none; /* allows clicking through to map */
+              display: none;
+              transition: opacity 1s ease-in-out;
+              border-right: 0px solid black; /* add black border */
+              border-bottom: 2px solid black; /* add black border */
+              box-sizing: border-box; /* include border in size */
+              /* relative positioning so ::after positions relative to this */
+              position: absolute;
+            }
+                /* Arrow tip */
+            #zoomin-text::after {
+              content: "";
+              position: absolute;
+              bottom: -2vh; /* push it outside bottom */
+              left: 37%;   /* near bottom-right corner */
+              width: 0;
+              height: 0;
+              border-style: solid;
+              border-width: 12px 12px 0px 12px; /* size of arrow */
+              border-color: black transparent transparent transparent; /* arrow color */
+            }
+        }
       
 
       #people-text {
         position: absolute;
-        bottom: 7vh;
+        bottom: 8vh;
         right: 10vh;
-        height: 66vh;
+        height: auto;
         width: 32vw;
         background: #f4ebe0a3;
         color: #333;
@@ -229,7 +263,7 @@ a:hover {
         font-family: 'Source Code Pro', monospace !important;
         font-weight: 300 !important;
         font-style: italic !important;
-        font-size: 1.3vh !important;
+        font-size: 1.4vh !important;
         line-height: 1.6;
         color: #333 !important;
         margin: 1.7em;
@@ -247,6 +281,40 @@ a:hover {
         height: 3vh !important;
         margin: 1em 2.5em;
       }
+
+       /* Celulares */
+        @media (max-width: 600px)  {
+            #people-text {
+              position: absolute;
+              bottom: 15vh;
+              right: 0;
+              height: auto;
+              width: 100vw;
+              background: #f4ebe0;
+              color: #333;
+              z-index: 12;
+              /* pointer-events: none; /* allows clicking through to map */
+              display: none;
+              transition: opacity 1s ease-in-out;
+              border-right: 0px solid black; /* add black border */
+              border-bottom: 2px solid black; /* add black border */
+              box-sizing: border-box; /* include border in size */
+              /* relative positioning so ::after positions relative to this */
+              position: absolute;
+            }
+                /* Arrow tip */
+            #people-text::after {
+              content: "";
+              position: absolute;
+              bottom: -2vh; /* push it outside bottom */
+              right: 37%;   /* near bottom-right corner */
+              width: 0;
+              height: 0;
+              border-style: solid;
+              border-width: 12px 12px 0px 12px; /* size of arrow */
+              border-color: black transparent transparent transparent; /* arrow color */
+            }
+        }
 
       .hidden {
          display: none !important;
@@ -317,6 +385,7 @@ hr {
   display: none;
   transition: opacity 2s ease-in-out;
   max-width: 500px;
+
 }
 
 #legend_zoomout {
@@ -329,6 +398,13 @@ hr {
   transition: opacity 2s ease-in-out;
   max-width: 500px;
 }
+
+@media (min-width: 600px) {
+  #legend-toggle{ 
+    display: none !important;
+  }
+}
+
 
 .iconbar-top {
   position:absolute;
@@ -349,6 +425,12 @@ hr {
   flex-direction: column;
   gap: 1.5vh;
 }
+        /* Celulares */
+        @media (max-width: 600px) {
+        #custom-zoom-controls {
+            display: none!important;
+          }
+        }
 
 #custom-zoom-controls img {
   width: 100%;
@@ -358,16 +440,89 @@ hr {
 
 
 .iconbar-bottom {
-  position:absolute;
-  right: 30px;
-  bottom: 10vh;
+  position: fixed; /* fixed keeps it in viewport even if page scrolls */
+  bottom: 10vh;    /* desktop spacing from bottom */
+  right: 30px;     /* desktop spacing from right */
+  z-index: 100;
+  display: flex;
+  flex-direction: column; /* vertical by default (desktop) */
+  align-items: center;
+  justify-content: space-between;
   height: 21vh;
   width: 5vh;
-  z-index: 100;
+  transform: translateX(-50%);
+  transform: rotate(180deg);
 }
 
+.iconbar-bottom > div {
+  flex: 0 0 auto;
+  width: 100%;
+  height: 28%;
+  cursor: pointer;
+  transform: scaleY(-1);  /*flips left ↔ right */
+  transform: rotate(180deg); /* now points down */
+}
+
+.iconbar-bottom img {
+  width: 100%;
+  height: auto;
+}
+
+        /* Celulares */
+        @media (max-width: 600px) {
+
+          .iconbar-bottom {
+            position: fixed;
+            bottom: 5vw;       /* closer to bottom */
+            left: 5%;        /* start in middle */
+            height: auto;
+            width: 90vw !important;
+            flex-direction: row; /* horizontal */
+            justify-content: space-around;
+            flex-wrap: nowrap;
+          }
+
+          .iconbar-bottom > div {
+            position: static !important;
+            width: 18% !important;
+            height: auto;
+            display: block !important;
+          }
+          /* Legend hidden initially on mobile */
+          #legend { 
+            display: none;
+            position: fixed;
+            bottom: 15vh !important; /* just above icon bar */
+            border-bottom: 2px solid black; /* add black border */
+            left: 50%; /* Circular gradient fading to transparent */
+            background: radial-gradient(ellipse 100% 45% at 50% 68%, rgba(244, 235, 224, 1) 50%, rgba(255, 255, 255, 0) 100%);
+            padding: 70% 15% 8% 15%;
+            transform: translateX(-50%);
+            width: 100vw !important;
+            max-width: none;
+            /* relative positioning so ::after positions relative to this */
+             position: absolute !important;
+            }
+                /* Arrow tip */
+            #legend::after {
+              content: "";
+              position: absolute;
+              bottom: -2vh; /* push it outside bottom */
+              left: 70%;   /* near bottom-right corner */
+              width: 0;
+              height: 0;
+              border-style: solid;
+              border-width: 12px 12px 0px 12px; /* size of arrow */
+              border-color: black transparent transparent transparent; /* arrow color */
+            }
+
+          #legend img{ 
+            width: 80% !important;
+            height: 50% !important;
+          }
+        }
+
 #back-button {
-   position: absolute;
    bottom: 0;
    right: 0;
    color: white;
@@ -378,16 +533,26 @@ hr {
    display: none;   
 }
 
-  .iconbar-bottom img{
-        width: 100%;
-  }
+#back-button:hover {
+  opacity: 0.6;
+}
+
+#back-button {
+   bottom: 0;
+   right: 0;
+   color: white;
+   z-index: 30;
+   cursor: pointer;
+   width: 100%;
+   height:28%;
+   display: none;   
+}
 
 #back-button:hover {
   opacity: 0.6;
 }
 
  .toggle-button {  
-   position: absolute;
    bottom: 13vh;
    right: 0;
    color: white;
@@ -403,7 +568,6 @@ hr {
 }
   
    .toggle-people {  
-   position: absolute;
    bottom: 6.5vh;
    right: 0;
    color: white;
@@ -443,9 +607,9 @@ hr {
   font-size: 25px;
   font-family: 'Source Code Pro', 'Courier New', 'Lucida Sans Typewriter', monospace;
   border: 2px solid #333;
-    border-top-width: 2px;
-    border-top-style: solid;
-    border-top-color: transparent;
+  border-top-width: 2px;
+  border-top-style: solid;
+  border-top-color: transparent;
   border-top: #333;
   padding: 0 5px;
   color: #333;
@@ -487,10 +651,16 @@ hr {
       color: white;
       pointer-events: none;
       border: none;
-      z-index: 100;
-      width: 30vw;
+      z-index: 30;
+      width: 30vw !important;
       display:block;
 }
+        /* Celulares */
+        @media (max-width: 600px) {
+        #logo_out { 
+            width: 80vw !important;
+          }
+        }
 
 #logo_in {
       position: absolute !important;
@@ -501,9 +671,15 @@ hr {
       color: white;
       border: none;
       z-index: 100;
-      width: 30vw;
+      width: 30vw !important;
       display:none;
 }
+        /* Celulares */
+        @media (max-width: 600px) {
+        #logo_in { 
+            width: 80vw !important;
+          }
+        }
 
 /*
 @media only screen and (min-width: 800px) {
@@ -522,7 +698,7 @@ hr {
 
 
 p {
-    font-size: 1.2vh;
+    font-size: 1.2vh !important;;
     color: black;
     font-family: 'Source Code Pro', 'Courier New', 'Lucida Sans Typewriter', monospace;
     line-height: 2vh;
@@ -532,8 +708,36 @@ p {
     bottom: 20px;
 }
 
+
+        /* Notebooks padrão */
+        @media (max-width: 1600px) {
+          p {
+             font-size: 1.5vh !important;
+          }
+        }
+
+        /* Notebooks menores e tablets */
+        @media (max-width: 1024px) {
+          p {
+             font-size: 1.6vh !important;
+            }
+        }
+
+        /* Celulares */
+        @media (max-width: 600px) {
+          p {
+             font-size: 1.4vw !important;
+          }
+        }
+
+p::selection{
+    background-color: black;
+    color: white;
+    
+}
+
 a {
-    font-size: 15px;
+    font-size: 1.2vh;
     color: black !important;
     font-family: 'Source Code Pro', 'Courier New', 'Lucida Sans Typewriter', monospace;
     font-weight: 700;
@@ -544,11 +748,27 @@ a {
     bottom: 20px;
 }
 
-p::selection{
-    background-color: black;
-    color: white;
-    
-}
+        /* Notebooks padrão */
+        @media (max-width: 1600px) {
+          a {
+             font-size: 1.5vh !important;
+          }
+        }
+
+        /* Notebooks menores e tablets */
+        @media (max-width: 1024px) {
+          a {
+             font-size: 1.6vh !important;
+            }
+        }
+
+        /* Celulares */
+        @media (max-width: 600px) {
+          a {
+             font-size: 1.4vw !important;
+          }
+        }
+
 
 
 #content p{
@@ -643,9 +863,30 @@ strong::selection{
 
     .mapboxgl-popup {
       padding-bottom: 15px;
-      max-width: 25% !important;
+      max-width: 35% !important; /* Telas bem grandes */
       z-index: 30;
     }
+
+        /* Notebooks padrão */
+        @media (max-width: 1440px) {
+          .mapboxgl-popup {
+            max-width: 40% !important;
+          }
+        }
+
+        /* Notebooks menores e tablets */
+        @media (max-width: 1024px) {
+          .mapboxgl-popup {
+            max-width: 60% !important;
+          }
+        }
+
+        /* Celulares */
+        @media (max-width: 768px) {
+          .mapboxgl-popup {
+            max-width: 80% !important;
+          }
+        }
 
     .mapboxgl-popup-close-button {
       display: none;
@@ -765,23 +1006,6 @@ a.mapboxgl-ctrl-logo{
 
 .mapboxgl-ctrl-group button {
     background-color: black;
-}
-
-
-
-audio::-webkit-media-controls-panel, video::-webkit-media-controls-panel {
-    background-color: white;
-}
-
-audio{
-    background-color: white;
-    opacity: 1;
-    width: 100% !important;
-    height: 30px !important;
-}
-
-.controls button:hover, .controls button:focus {
-   color: black;
 }
 
 .mapboxgl-ctrl-zoom-in,

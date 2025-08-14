@@ -57,11 +57,7 @@
     </div>
 
         
-    <div class="iconbar-bottom">
-      <div id="back-button"><img src="../assets/back.png"></div>
-      <div id="toggle-people" class="toggle-people"><img src="../assets/people.png"></div>
-      <div id="toggle-info" class="toggle-button"><img src="../assets/info.png"></div>
-    </div>
+
 
     <div id="zoomin-text">
       <button class="close-btn">
@@ -93,17 +89,10 @@
       garment workers and industry stakeholders in Al-Hassan (2023-2025), introducing David and
       Mélanie to diverse interlocutors and places, and proposing stories to be (re-)written through
       sound and illustration.</p>
-      <p>
-        <a href="https://www.invisibleworkers.org.uk/journal/notes-from-the-field-jordan-t4pgd" target="_blank" rel="noopener noreferrer">
-        Behind the Scenes</a> of this Sound Map
-       </p>
-      
-      <img src="../assets/logo_uni.png" alt="University of Nottingham" class="logos"/>
-      <img src="../assets/logo_uk.png" alt="UK Research and Innovation" class="logos" />
+      <p><a href="https://www.invisibleworkers.org.uk/journal/notes-from-the-field-jordan-t4pgd" target="_blank" rel="noopener noreferrer">
+        Behind the Scenes</a> of this Sound Map</p>
     </div>
 
-    <img src="../assets/logo_out.png" id="logo_out"> 
-    <img src="../assets/logo_in.png" id="logo_in"> 
     
     <div id="fly-button" class="map-button">
       <span class="title">Al-Hassan</span><br>
@@ -112,11 +101,19 @@
     
     <div id="container">
       <div id="map_zoomout" class="mapbox">
+        <img src="../assets/logo_out.png" id="logo_out">  
         <img src="../assets/legend_zoomout.png" id="legend_zoomout"> 
       </div>
       <div id="map" class="mapbox">
         <div id="corner-gradient"></div>
+        <img src="../assets/logo_in.png" id="logo_in"> 
         <img src="../assets/legend.png" id="legend">
+            <div class="iconbar-bottom">
+              <div id="back-button"><img src="../assets/back.png"></div>
+              <div id="toggle-people" class="toggle-people"><img src="../assets/people.png"></div>
+              <div id="toggle-info" class="toggle-button"><img src="../assets/info.png"></div>
+              <div id="legend-toggle"><img src="../assets/legend_icon.png"></div>
+            </div>
       </div>
     </div>
 
@@ -146,23 +143,29 @@
         mapboxgl.accessToken = 'pk.eyJ1Ijoic2FyYWxnYyIsImEiOiJja2NjbTAyczkwNXA3Mnlscm5nbjN5OHZiIn0.yNcJkPBSugRlIeGkXDRlZw'; //Mapbox token 
 
         let zoom_intro;
+        let center_intro;
         if (window.innerWidth < 600) { 
-          zoom_intro = 5.4; 
+          zoom_intro = 7.3;
+          center_intro = [35.8, 31.8]; 
         } else if (window.innerWidth < 1024) { 
           zoom_intro = 6;
+          center_intro = [37.1,31.3]; 
         } else if (window.innerWidth < 1400) {
           zoom_intro = 6.4;
+          center_intro = [37.1,31.3]; 
         } else if (window.innerWidth < 1600) {
           zoom_intro = 6.8;
+          center_intro = [37.1,31.3]; 
         } else {
           zoom_intro = 7.7;
+          center_intro = [37.1,31.3]; 
         }
         
         // Map 1 - zoom out style
         const map_zoomout = new mapboxgl.Map({
           container: 'map_zoomout',
           style: 'mapbox://styles/saralgc/cme6yvb7r00rp01sc7fti6e9h',
-          center: [37.1,31.3],
+          center: center_intro,
           zoom: zoom_intro,
           interactive: false
         });
@@ -173,7 +176,7 @@
           style: 'mapbox://styles/saralgc/cma8ug1iu00i201s3ck8y339n',
           center: [37.1,31.4],
           zoom: zoom_intro,
-          maxZoom: 17,
+          maxZoom: 19,
         });
         
             //PLACE ZOOM BUTTOM ON MAP
@@ -209,13 +212,13 @@
                   
                   if (window.innerWidth < 600) {
                     // Smartphones
-                    zoom = 10.5;
-                    speed = 2.5;
+                    zoom = 15;
+                    speed = 32.5;
                   } else if (window.innerWidth < 1024) {
                     // Tablets
                     zoom = 12.5;
                     speed = 3.5;
-                  } else if (window.innerWidth < 1800) {
+                  } else if (window.innerWidth < 1600) {
                     // Notebooks
                     zoom = 14.5;
                     speed = 4.5;
@@ -429,7 +432,7 @@
                   var description =  `<div style="width:100%; aspect-ratio: 16 / 9;">
                                         <iframe width="100%" height="100%" 
                                         src="https://www.youtube.com/embed/` + e.features[0].properties.videoID + 
-                                        `?loop=1&playlist=` + e.features[0].properties.videoID + 
+                                        `?autoplay=1&modestbranding=1&showinfo=0&modestbranding=1&rel=0&color=white&iv_load_policy=3&loop=1&playlist=` + e.features[0].properties.videoID + 
                                         `"frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
                                         allowfullscreen>
                                         </iframe>
@@ -613,6 +616,16 @@
           document.getElementById("custom-zoom-out").addEventListener("click", () => {
             map.zoomOut();
           });
+
+      //LEGEND BUTTON ON MOBILE
+      document.getElementById('legend-toggle').addEventListener('click', function () {
+      const legend = document.getElementById('legend');
+      if (legend.style.display === 'block') {
+        legend.style.display = 'none';
+      } else {
+        legend.style.display = 'block';
+      }
+    });
 
       //   ____________________________  END ZOOM-IN MAP ELEMENTS  ____________________________  
 
