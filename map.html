@@ -1,912 +1,140 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-  <meta charset="utf-8" />
-
-  <title>Al Hassan Soundmap</title>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0", user-scalable="no">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="../map.css">
-  <!-- Google fonts-->
-  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;400;500;700&display=swap" rel="stylesheet">
-  <!-- Font Awesome-->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-
-  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no"/>
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://api.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.js"></script>
-  <link href="https://api.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.css" rel="stylesheet" />
-  <script src="https://npmcdn.com/csv2geojson@latest/csv2geojson.js"></script>
-  <script src="https://npmcdn.com/@turf/turf/turf.min.js"></script>
-  <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.0.0/mapbox-gl-geocoder.min.js"></script>
-  <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.0.0/mapbox-gl-geocoder.css" type="text/css" />
-  
-</head>
-    
-<body>
-
-
-    <div id="zoomout-text">
-      <p>
-        Jordan first became a major clothing production location when a 1996 US preferential trade
-        agreement guaranteed duty-free access to the American market for Made-in-Jordan
-        garments. Since then, multi-national garment producer firms have relocated production
-        facilities to Jordan’s industrial zones, importing production materials like cloth and
-        accessories from Asia to sew clothes in Jordanian factories. 75% of the approximately
-        80,000 workers fabricating clothing in Jordan’s factories are migrant workers, the vast
-        majority of whom are recruited on 3-year contracts from various countries in South Asia.
-      </p>
-      <p>
-        The foreign workers only receive part of their meagre salaries as cash wages because money is
-        deducted for accommodation in dormitories and canteen food supplied by the employers.
-        Jordan’s industrial zones thus today resemble secluded factory and dormitory cities that
-        concentrate a diverse migrant population. This sound map offers you an immersive
-        experience of Al-Hassan, Jordan’s largest clothing production zone
-      </p>
-      <p>
-        <a href="https://www.invisibleworkers.org.uk/journal/notes-from-the-field-jordan-t4pgd" target="_blank" rel="noopener noreferrer">
-        Read More about Jordan’s clothing industry</a>
-       </p>
-       <br>
-        <img src="../assets/logo_uni.png" alt="University of Nottingham" class="logos"/>
-        <img src="../assets/logo_uk.png" alt="UK Research and Innovation" class="logos" />
-    </div>
-
-        
-
-
-    <div id="zoomin-text">
-      <button class="close-btn">
-        <i class="fa-solid fa-xmark"></i>
-      </button>
-      <br><br>
-      <p>This map invites you to discover life and labour in a global garment production site. It offers insight into the everyday rhythms, routines and rituals that characterize life in a dormitory migrant labour regime. </p>
-      <p>Approximately 30.000 factory workers sew garments for American sports and outdoor brands in Jordan’s largest industrial zone for clothing production. Over two thirds of them are migrant workers, recruited from Bangladesh, India, and other countries in South Asia; as well as from Madagascar. They live in dormitories beside the factories and spend most of their time inside or in the immediate surrounds of the walled industrial zone.</p>
-      <p>Click on the red points on the map to enter the sonic and visual universe of a globally connected, yet locally secluded industrial zone that usually remains inaccessible to outsiders.</p>
-    </div>
-
-    <div id="people-text">
-      <button class="close-btn">
-        <i class="fa-solid fa-xmark"></i>
-      </button>
-      <br><br>
-      <p>The sonic and visual universe you can navigate on this map is first and foremost the
-      outcome of two weeks of intensive research, recording and drawing in and around the Al-
-      Hassan industrial zone in the North of Jordan in April 2025.</p>
-      <p>David Lagarde – geographer, independent cartographer and sound artist – captured the
-      unique soundscape of Al-Hassan’s clothing factories, money transfer machines and trash
-      flying in the dust storms, with the diverse microphones he carried tirelessly on his back.</p>
-      <p>Mélanie Forné – archaeologist, graphic designer and independent illustrator – followed
-      David and his microphones from factory canteens into sari shops and to marketplaces,
-      sketchbook and pencil always in hand to take in the dense visual impressions, ambiances
-      and aesthetics of Al-Hassan’s life worlds.</p>
-      <p>Katharina Grüneisl – geographer and lead researcher in Jordan for the Invisible Women
-      Invisible Workers research project – had already conducted extensive fieldwork with
-      garment workers and industry stakeholders in Al-Hassan (2023-2025), introducing David and
-      Mélanie to diverse interlocutors and places, and proposing stories to be (re-)written through
-      sound and illustration.</p>
-      <p><a href="https://www.invisibleworkers.org.uk/journal/notes-from-the-field-jordan-t4pgd" target="_blank" rel="noopener noreferrer">
-        Behind the Scenes</a> of this Sound Map</p>
-    </div>
-
-    
-    <div id="fly-button" class="map-button">
-      <span class="title">Al-Hassan</span><br>
-      <span class="subtitle">sound  map</span>
-    </div>
-    
+  <head>
+    <!-- HTML configs -->
+    <meta charset="utf-8" />
+    <title>Al Hassan Soundmap</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0", user-scalable="no">
+    <!-- Google fonts -->
+     <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- CSS -->
+     <link rel="stylesheet" href="../map.css">
+    <!-- Map plugins: mapbox, turf, csv2geojason -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.css" rel="stylesheet" />
+    <script src="https://npmcdn.com/csv2geojson@latest/csv2geojson.js"></script>
+    <script src="https://npmcdn.com/@turf/turf/turf.min.js"></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.0.0/mapbox-gl-geocoder.min.js"></script>
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.0.0/mapbox-gl-geocoder.css" type="text/css" />
+  </head>
+      
+  <body>
+    <!-- container with zoom out and zoom in maps -->
     <div id="container">
-      <div id="map_zoomout" class="mapbox">
-        <img src="../assets/logo_out.png" id="logo_out">  
-        <img src="../assets/legend_zoomout.png" id="legend_zoomout"> 
+      <!-- zoom out map - JORDAN -->
+      <div id="map_zoomout" class="mapbox">  
+            <div id="zoomout-text">
+              <button class="close-btn"><i class="fa-solid fa-xmark"></i></button>
+              <br><br>
+              <p>
+                Jordan first became a major clothing production location when a 1996 US preferential trade
+                agreement guaranteed duty-free access to the American market for Made-in-Jordan
+                garments. Since then, multi-national garment producer firms have relocated production
+                facilities to Jordan’s industrial zones, importing production materials like cloth and
+                accessories from Asia to sew clothes in Jordanian factories. 75% of the approximately
+                80,000 workers fabricating clothing in Jordan’s factories are migrant workers, the vast
+                majority of whom are recruited on 3-year contracts from various countries in South Asia.
+              </p>
+              <p>
+                The foreign workers only receive part of their meagre salaries as cash wages because money is
+                deducted for accommodation in dormitories and canteen food supplied by the employers.
+                Jordan’s industrial zones thus today resemble secluded factory and dormitory cities that
+                concentrate a diverse migrant population. This sound map offers you an immersive
+                experience of Al-Hassan, Jordan’s largest clothing production zone
+              </p>
+              <p>
+                <a href="https://www.invisibleworkers.org.uk/journal/notes-from-the-field-jordan-t4pgd" target="_blank" rel="noopener noreferrer">
+                Read More about Jordan’s clothing industry</a>
+              </p>
+                <img src="../assets/logo_uni.png" alt="University of Nottingham" class="logos"/>
+                <img src="../assets/logo_uk.png" alt="UK Research and Innovation" class="logos" />
+            </div>       
+            <div id="fly-button" class="map-button">
+              <span class="title">Al-Hassan</span><br>
+              <span class="subtitle">sound  map</span>
+            </div>
+            <div id="zoomout-info-btn" class="zoomout-info-btn""><img src="../assets/info.png"></div>
+            <div id="zoomout-corner-gradient"></div>
+            <img src="../assets/logo_out.png" id="logo_out">
+            <img src="../assets/legend_zoomout.png" id="legend_zoomout">  
       </div>
+      <!-- END of zoom out map -->
+
+      <!-- zoom in map - AL HASSAN -->
       <div id="map" class="mapbox">
+          <div id="zoomin-text">
+              <button class="close-btn"><i class="fa-solid fa-xmark"></i></button>
+            <br><br>
+            <p>This map invites you to discover life and labour in a global garment production site. 
+              It offers insight into the everyday rhythms, routines and rituals that characterize life in a dormitory migrant labour regime. </p>
+            <p>Approximately 30.000 factory workers sew garments for American sports 
+              and outdoor brands in Jordan’s largest industrial zone for clothing production. 
+              Over two thirds of them are migrant workers, recruited from Bangladesh, India, and other countries in South Asia; 
+              as well as from Madagascar. They live in dormitories beside the factories and spend most of their time inside 
+              or in the immediate surrounds of the walled industrial zone.</p>
+            <p>Click on the red points on the map to enter the sonic and visual universe of a globally connected, 
+              yet locally secluded industrial zone that usually remains inaccessible to outsiders.</p>
+          </div>
+
+          <div id="people-text">
+            <button class="close-btn"><i class="fa-solid fa-xmark"></i></button>
+            <br><br>
+            <p>The sonic and visual universe you can navigate on this map is first and foremost the
+            outcome of two weeks of intensive research, recording and drawing in and around the Al-
+            Hassan industrial zone in the North of Jordan in April 2025.</p>
+            <p>David Lagarde – geographer, independent cartographer and sound artist – captured the
+            unique soundscape of Al-Hassan’s clothing factories, money transfer machines and trash
+            flying in the dust storms, with the diverse microphones he carried tirelessly on his back.</p>
+            <p>Mélanie Forné – archaeologist, graphic designer and independent illustrator – followed
+            David and his microphones from factory canteens into sari shops and to marketplaces,
+            sketchbook and pencil always in hand to take in the dense visual impressions, ambiances
+            and aesthetics of Al-Hassan’s life worlds.</p>
+            <p>Katharina Grüneisl – geographer and lead researcher in Jordan for the Invisible Women
+            Invisible Workers research project – had already conducted extensive fieldwork with
+            garment workers and industry stakeholders in Al-Hassan (2023-2025), introducing David and
+            Mélanie to diverse interlocutors and places, and proposing stories to be (re-)written through
+            sound and illustration.</p>
+            <p><a href="https://www.invisibleworkers.org.uk/journal/notes-from-the-field-jordan-t4pgd" target="_blank" rel="noopener noreferrer">
+              Behind the Scenes</a> of this Sound Map</p>
+        </div>
         <div id="corner-gradient"></div>
         <img src="../assets/logo_in.png" id="logo_in"> 
         <img src="../assets/legend.png" id="legend">
-            <div class="iconbar-bottom">
-              <div id="back-button"><img src="../assets/back.png"></div>
-              <div id="toggle-people" class="toggle-people"><img src="../assets/people.png"></div>
-              <div id="toggle-info" class="toggle-button"><img src="../assets/info.png"></div>
-              <div id="legend-toggle"><img src="../assets/legend_icon.png"></div>
-            </div>
+        <div id="legend_mobile">
+          <button id="legend_close"><i class="fa-solid fa-xmark"></i></button>
+          <img src="../assets/legend.png">
+        </div>
+        <div class="iconbar-bottom">
+          <div id="back-button"><img src="../assets/back.png"></div>
+          <div id="toggle-people" class="toggle-people"><img src="../assets/people.png"></div>
+          <div id="toggle-info" class="toggle-button"><img src="../assets/info.png"></div>
+          <div id="legend-toggle"><img src="../assets/legend_icon.png"></div>
+        </div>
+        <div id="custom-zoom-controls">
+            <img src="../assets/zoom_in.png" id="custom-zoom-in" alt="Zoom In" />
+            <img src="../assets/zoom_out.png" id="custom-zoom-out" alt="Zoom Out" />
+        </div>
       </div>
-    </div>
-
-    <div id="custom-zoom-controls">
-        <img src="../assets/zoom_in.png" id="custom-zoom-in" alt="Zoom In" />
-        <img src="../assets/zoom_out.png" id="custom-zoom-out" alt="Zoom Out" />
-    </div>
-
-      
-      <script>
-        var geocoder = new MapboxGeocoder({
-          accessToken: mapboxgl.accessToken,
-          mapboxgl: mapboxgl
-        });
-        
-        var transformRequest = (url, resourceType) => {
-          var isMapboxRequest =
-            url.slice(8, 22) === "api.mapbox.com" ||
-            url.slice(10, 26) === "tiles.mapbox.com";
-          return {
-            url: isMapboxRequest
-              ? url.replace("?", "?pluginName=sheetMapper&")
-              : url
-          };
-        };
-          
-        mapboxgl.accessToken = 'pk.eyJ1Ijoic2FyYWxnYyIsImEiOiJja2NjbTAyczkwNXA3Mnlscm5nbjN5OHZiIn0.yNcJkPBSugRlIeGkXDRlZw'; //Mapbox token 
-
-        let zoom_intro;
-        let center_intro;
-        if (window.innerWidth < 600) { 
-          zoom_intro = 7.3;
-          center_intro = [35.8, 31.8]; 
-        } else if (window.innerWidth < 1024) { 
-          zoom_intro = 6;
-          center_intro = [37.1,31.3]; 
-        } else if (window.innerWidth < 1400) {
-          zoom_intro = 6.4;
-          center_intro = [37.1,31.3]; 
-        } else if (window.innerWidth < 1600) {
-          zoom_intro = 6.8;
-          center_intro = [37.1,31.3]; 
-        } else {
-          zoom_intro = 7.7;
-          center_intro = [37.1,31.3]; 
-        }
-        
-        // Map 1 - zoom out style
-        const map_zoomout = new mapboxgl.Map({
-          container: 'map_zoomout',
-          style: 'mapbox://styles/saralgc/cme6yvb7r00rp01sc7fti6e9h',
-          center: center_intro,
-          zoom: zoom_intro,
-          interactive: false
-        });
-
-        // Map 2 - zoom in style
-        const map = new mapboxgl.Map({
-          container: 'map',
-          style: 'mapbox://styles/saralgc/cma8ug1iu00i201s3ck8y339n',
-          center: [37.1,31.4],
-          zoom: zoom_intro,
-          maxZoom: 19,
-        });
-        
-            //PLACE ZOOM BUTTOM ON MAP
-            const coordinates =  [36.019838, 32.499705] ; 
-            const flyButton = document.getElementById('fly-button');
-
-            new mapboxgl.Marker({
-                element: flyButton,
-                anchor: 'bottom',
-                offset: [0, -30] // [x, y] in pixels
-            })
-            .setLngLat(coordinates)
-            .addTo(map_zoomout);
-
-
-        //  ANIMATION ZOOM-OUT TO ZOOM-IN
-        const togglePpl = document.getElementById("toggle-people");
-        const toggleBtn = document.getElementById("toggle-info");
-        const zoominText = document.getElementById("zoomin-text");
-        const peopleText = document.getElementById("people-text");
-
-        document.getElementById('fly-button').addEventListener('click', () => {
-                  flyZoomIn ();
-        });
-      // END OF ANIMATION ZOOM-OUT TO ZOOM-IN
-      
-      function flyZoomIn (){
-                  const target = [36.02645,32.49982]; 
-
-                  //DEFINE ZOOM IN FUNCTION OF SCREEN SIZE
-                  let zoom;
-                  let speed;
-                  
-                  if (window.innerWidth < 600) {
-                    // Smartphones
-                    zoom = 15;
-                    speed = 32.5;
-                  } else if (window.innerWidth < 1024) {
-                    // Tablets
-                    zoom = 12.5;
-                    speed = 3.5;
-                  } else if (window.innerWidth < 1600) {
-                    // Notebooks
-                    zoom = 14.5;
-                    speed = 4.5;
-                  } else {
-                    // Desktops
-                    zoom = 15.2;
-                    speed = 35.5;
-                  }
-                  //END
-
-                  //hide place labels on zoom out map
-                  if (map_zoomout.getLayer('productionSites-layer')) {
-                    map_zoomout.setLayoutProperty('productionSites-layer', 'visibility', 'none');
-                  }
-                  //switch title logos
-                  document.getElementById('logo_out').style.display = 'none';
-
-                  //switch legends
-                  document.getElementById('legend_zoomout').style.display = 'none';
-
-                  //show zoom controls
-                  document.getElementById('custom-zoom-controls').style.display = 'flex';
-                    
-                  // Fly on both maps, keeping syncrony
-                  map_zoomout.flyTo({ center: target, zoom: zoom });
-                  map.flyTo({ center: target, zoom: zoom, speed: speed });
-                  document.getElementById('fly-button').style.display = 'none';
-                  document.getElementById('zoomout-text').style.display = 'none';
-                  map.once('moveend', () => {
-                    map.setMaxBounds(bounds);
-                  });
-
-
-                  setTimeout(() => {
-                    const mapDiv = document.getElementById('map');
-                    const legend = document.getElementById('legend');
-                    const map_zoomoutDiv = document.getElementById('map_zoomout');
-                    const cornerDiv = document.getElementById('corner-gradient');
-                    document.getElementById('back-button').style.display = 'block'; // Show back button
-                    document.getElementById('logo_in').style.display = 'block';
-                    cornerDiv.style.display = 'block';
-                    legend.style.display = 'block';
-                    togglePpl.style.display = 'block !important';
-                    toggleBtn.style.display = 'block';
-                    map_zoomoutDiv.style.opacity = 0;
-                    mapDiv.style.opacity = 1;
-                    mapDiv.classList.add('active');
-                    showZoominUI()
-                  }, 2700);
-        }
-
-
-      //  ANIMATION ZOOM-IN TO ZOOM-OUT
-      document.getElementById('back-button').addEventListener('click', () => {
-                  const initialView = [37.1,31.3];
-
-                  map.flyTo({ center: initialView, zoom: zoom_intro });
-                  map_zoomout.flyTo({ center: initialView, zoom: zoom_intro });
-
-                  document.getElementById('back-button').style.display = 'none';
-                  document.getElementById('toggle-info').style.display = 'none';
-                  document.getElementById('toggle-people').style.display = 'none';
-                  map.once('moveend', () => {
-                    document.getElementById('fly-button').style.display = 'block';
-                    document.getElementById('logo_out').style.display = 'block';
-                    document.getElementById('legend_zoomout').style.display = 'block';
-                    
-                  });
-
-                  // Restore map visibility
-                  const mapDiv = document.getElementById('map');
-                  const legend = document.getElementById('legend');
-                  const map_zoomoutDiv = document.getElementById('map_zoomout');
-                  const cornerDiv = document.getElementById('corner-gradient');
-                  const zoomOutText = document.getElementById('zoomout-text');
-                  if (map_zoomout.getLayer('productionSites-layer')) {
-                    map_zoomout.setLayoutProperty('productionSites-layer', 'visibility', 'visible');
-                  }
-                 const zoomInText = document.getElementById('zoomin-text');
-
-                  //switch title-logo
-                  document.getElementById('logo_in').style.display = 'none';
-
-
-                  //hide zoom controls
-                  document.getElementById('custom-zoom-controls').style.display = 'none';
-
-                  cornerDiv.style.display = 'none';
-                  legend.style.display = 'none';
-                  map_zoomoutDiv.style.opacity = 1;
-                  mapDiv.style.opacity = 0;
-                  zoomOutText.style.display = 'block';
-                  zoomInText.style.display = 'none';
-                  hideZoominUI(); // Hide button + restore zoomin text
-                  hidePopup('zoomin-text');
-                  hidePopup('people-text');
-
-                  mapDiv.classList.remove('active');
-                  
-                  // Remove bounds restriction
-                  map.setMaxBounds(null);
-      });
-
-      // Ensure zoomin UI is hidden on initial load
-      document.addEventListener("DOMContentLoaded", () => {
-        hideZoominUI(); // hide on load (zoom-out mode)
-      });
-
-      //  END OF ANIMATION ZOOM-IN TO ZOOM-OUT
-
-      // ____________________________  ZOOM-IN MAP ELEMENTS  ____________________________  
-
-        function showPopup(id) {
-          document.getElementById(id).style.display = 'block';
-        }
-        function hidePopup(id) {
-          document.getElementById(id).style.display = 'none';
-        }
-
-        // Open popups
-        document.getElementById('toggle-info').addEventListener('click', () => {
-          hidePopup('people-text');
-          showPopup('zoomin-text');
-        });
-        document.getElementById('toggle-people').addEventListener('click', () => {
-          hidePopup('zoomin-text');
-          showPopup('people-text');
-        });
-
-        // Close popups 
-        document.querySelector('#zoomin-text .close-btn').addEventListener('click', () => {
-          hidePopup('zoomin-text');
-        });
-        document.querySelector('#people-text .close-btn').addEventListener('click', () => {
-          hidePopup('people-text');
-        });
-
-        // Close popups when clicking anywhere on the map
-        map.on('click', () => {
-          hidePopup('zoomin-text');
-          hidePopup('people-text');
-        });
-
-      function showZoominUI() {
-        //INFO BUTTON
-        zoominText.style.display = 'block';
-        zoominText.style.display = "block";
-        toggleBtn.style.display = "block";
-        //PEOPLE BUTTON
-        togglePpl.style.display = "block";
-      }
-
-      function hideZoominUI() {
-        zoominText.style.display = 'none'; // Hide the text
-        toggleBtn.style.display = "none";   // Hide the toggle button
-      }
-
-
-      // bounds
-        const bounds = [
-            [35.99145 , 32.485],// lng, lat Southwest coordinates
-            [36.06145, 32.515] // lng, lat Northeast coordinates
-        ];
-
-        //map data load
-        $(document).ready(function () {
-          $.ajax({
-            type: "GET",
-            url:'../assets/videos.csv',
-            dataType: "text",
-            success: function (csvData) { makeGeoJSON(csvData); }
-          });
-
-
-    function makeGeoJSON(csvData) {
-            csv2geojson.csv2geojson(csvData, {
-              latfield: 'Latitude',
-              lonfield: 'Longitude',
-              delimiter: ','
-            }, function (err, data) {
-              
-              map.on('load', function () {
-                  
-                map.addLayer({
-                    'id': 'csvData',
-                    'type': 'circle',
-                    'source': {
-                        'type': 'geojson',
-                        'data': data
-                    },
-                    'paint': {
-                        'circle-radius': [
-                            'interpolate',
-                            ['linear'],
-                            ['zoom'],
-                            5, 2,      // zoom level 5 → radius 2px
-                            10, 7,     // zoom level 10 → radius 7px
-                            15, 10,     // zoom level 15 → radius 10px
-                            18, 25     // zoom level 18 → radius 25px
-                        ],
-                        'circle-color': '#EB6047',
-                        'circle-opacity': 1
-                    }
-                });
-
-                // When a click event occurs on a feature in the csvData layer, open a popup at the
-                // location of the feature, with description HTML from its properties.
-                
-                map.on('click', 'csvData', function (e) {
-                  var coordinates = e.features[0].geometry.coordinates.slice();
-                  var description =  `<div style="width:100%; aspect-ratio: 16 / 9;">
-                                        <iframe width="100%" height="100%" 
-                                        src="https://www.youtube.com/embed/` + e.features[0].properties.videoID + 
-                                        `?autoplay=1&modestbranding=1&showinfo=0&modestbranding=1&rel=0&color=white&iv_load_policy=3&loop=1&playlist=` + e.features[0].properties.videoID + 
-                                        `"frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
-                                        allowfullscreen>
-                                        </iframe>
-                                      </div>`
-                                    + `<h2>` + e.features[0].properties.title + `</h2>`
-                                    + `<p>` + e.features[0].properties.description + `</p>` ;
-                    
-                  while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-                  coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-                }     
-                  //add Popup to map
-                  new mapboxgl.Popup()
-                    .setLngLat(coordinates)
-                    .setHTML(description)
-                    .addTo(map);
-                }); 
-              });
-              
-              // ADDING ICONS AND TEXTS TO THE MAP
-              
-              // 1. ENTRANCE ICON
-                  map.loadImage('../assets/entrance.png', function(error, image) {
-                    if (error) throw error;
-                    if (!map.hasImage('custom-icon')) {
-                      map.addImage('custom-icon', image);
-                    }
-
-                    map.addLayer({
-                      id: 'entrance',
-                      type: 'symbol',
-                      source: {
-                        type: 'geojson',
-                        data: {
-                          type: 'FeatureCollection',
-                          features: [
-                            {
-                              type: 'Feature',
-                              geometry: {
-                                type: 'Point',
-                                coordinates: [36.019773, 32.499620]       
-                              }
-                            },
-                            {
-                              type: 'Feature',
-                              geometry: {
-                                type: 'Point',
-                                coordinates: [36.022815, 32.497503]
-                              }
-                            },
-                            {
-                              type: 'Feature',
-                              geometry: {
-                                type: 'Point',
-                                coordinates: [36.0382478, 32.5075051]
-                              }
-                            }
-                          ]
-                        }
-                      },
-                      layout: {
-                        'icon-image': 'custom-icon',
-                        'icon-size': [
-                          'interpolate',
-                          ['linear'],
-                          ['zoom'],     // zoom level 5 → radius 2px
-                            6, 0.1,     // zoom level 10 → radius 7px
-                            15, 0.25,     // zoom level 15 → radius 10px
-                            18, 0.7    // zoom level 18 → radius 25px
-                        ],
-                        'icon-allow-overlap': true
-                      }
-                    });
-                  });
-              // 1. END
-
-              // 2. PLACE LABELS
-
-              const placeLabels = {
-                type: 'FeatureCollection',
-                features: [
-                  { type: 'Feature', properties: { title: 'The Main\nEntrance', "anchor": "top", "offset": [0, 3]}, geometry: { type: 'Point', coordinates: [36.0201, 32.4999] }},
-                  { type: 'Feature', properties: { title: 'Poultry traders', "anchor": "top-left", "offset": [1, -1]}, geometry: { type: 'Point', coordinates: [36.0241472, 32.5055748] }},
-                  { type: 'Feature', properties: { title: 'Fish vendors', "anchor": "top", "offset": [0, -2.5]}, geometry: { type: 'Point', coordinates: [36.0253275, 32.5062520] }},
-                  { type: 'Feature', properties: { title: 'Clothing and beauty salon', "anchor": "top", "offset": [0, -3.5]}, geometry: { type: 'Point', coordinates: [36.0217374, 32.5054057] }},
-                  { type: 'Feature', properties: { title: 'Phase II Market', "anchor": "right", "offset": [-1, 0]}, geometry: { type: 'Point', coordinates: [36.0183840, 32.5048516] }},
-                  { type: 'Feature', properties: { title: 'The Warehouse Quarter', "anchor": "top-left", "offset": [0, -2.2]}, geometry: { type: 'Point', coordinates: [36.032564, 32.506582] }},
-                  { type: 'Feature', properties: { title: 'Money Transfer Office', "anchor": "top-left", "offset": [-0.5, -2.5]}, geometry: { type: 'Point', coordinates: [36.0211240, 32.4997588] }},
-                  { type: 'Feature', properties: { title: 'Workers’ Centre', "anchor": "top", "offset": [0, 1]}, geometry: { type: 'Point', coordinates: [36.0295716, 32.5051489] }},
-                  { type: 'Feature', properties: { title: 'The Factory Canteen', "anchor": "top-left", "offset": [0, -2.2]}, geometry: { type: 'Point', coordinates: [36.0259886, 32.4999871] }},
-                  { type: 'Feature', properties: { title: 'End of\nFactory Shifts', "anchor": "left", "offset": [1, 0]}, geometry: { type: 'Point', coordinates: [36.0236333, 32.5029417] }},
-                  { type: 'Feature', properties: { title: 'Rubina Hostels', "anchor": "right", "offset": [-1, 0]}, geometry: { type: 'Point', coordinates: [36.0192351, 32.4935061] }},
-                  { type: 'Feature', properties: { title: 'The Dormitory', "anchor": "top-left", "offset": [1, -0.5]}, geometry: { type: 'Point', coordinates: [36.0244020, 32.4961195] }},
-                  { type: 'Feature', properties: { title: 'Subcontracting Factory', "anchor": "top-left", "offset": [-0.5, -2.5]}, geometry: { type: 'Point', coordinates: [36.0233175, 32.4983430] }},
-                  { type: 'Feature', properties: { title: 'Exporting Factory', "anchor": "top", "offset": [0, -2.5]}, geometry: { type: 'Point', coordinates: [36.0299977, 32.4948314] }},
-                  { type: 'Feature', properties: { title: 'Crossing    the Wall', "anchor": "right", "offset": [-0.5, -2]}, geometry: { type: 'Point', coordinates: [36.0280514, 32.507] }}
-                ]
-              };
-
-              map.addSource('place-labels', {
-                type: 'geojson',
-                data: placeLabels
-              });
-
-              map.addLayer({
-                id: 'place-labels',
-                type: 'symbol',
-                source: 'place-labels',
-                minzoom: 15,
-                maxzoom: 20,
-                layout: {
-                  'text-field': ['get', 'title'],
-                  'text-font': ['Source Code Pro Semibold'],
-                  'text-size': [
-                    'interpolate',
-                    ['linear'],
-                    ['zoom'],
-                    15, 16,
-                    18, 23
-                  ],
-                'text-anchor': ['get', 'anchor'],
-                'text-offset': ['get', 'offset'],
-                },
-                paint: {
-                'text-color': '#000000',
-                'text-halo-color': '#ffffff',
-                'text-halo-width': 3,
-                'text-halo-blur': 5
-              }
-              });
-              // 2. END
-
-              // 3. CRICKET LABEL
-              map.addSource('cricket-label', {
-                type: 'geojson',
-                data: {
-                  type: 'FeatureCollection',
-                  features: [{type: 'Feature', properties: {name: 'Cricket\nPitch'}, geometry: {type: 'Point', coordinates: [36.019614, 32.505617]}}
-                  ]
-                }
-              });
-
-              map.addLayer({
-                id: 'cricket-label-layer',
-                type: 'symbol',
-                source: 'cricket-label',
-                layout: {
-                  'text-field': ['get', 'name'],
-                  'text-font': ['Source Code Pro Light'],
-                  'text-size': [
-                    'interpolate',
-                    ['linear'],
-                    ['zoom'],
-                    14.5, 15,
-                    18, 27
-                  ],
-                  'text-anchor': 'center',
-                  'text-offset': [0, 0]
-                },
-                paint: {
-                  'text-color': '#000'
-                },
-                minzoom: 15.5,
-                maxzoom: 20
-              });
-
-
-              // 3. END
-
-
-            });
-          };    
-        });
-          
-      // ZOOM
-          map.addControl(new mapboxgl.NavigationControl(), 'top-right'); // disable map zoom when using scroll
-
-          document.getElementById("custom-zoom-in").addEventListener("click", () => {
-            map.zoomIn();
-          });
-
-          document.getElementById("custom-zoom-out").addEventListener("click", () => {
-            map.zoomOut();
-          });
-
-      //LEGEND BUTTON ON MOBILE
-      document.getElementById('legend-toggle').addEventListener('click', function () {
-      const legend = document.getElementById('legend');
-      if (legend.style.display === 'block') {
-        legend.style.display = 'none';
-      } else {
-        legend.style.display = 'block';
-      }
-    });
-
-      //   ____________________________  END ZOOM-IN MAP ELEMENTS  ____________________________  
-
-      // ____________________________  ZOOM-OUT MAP ELEMENTS  ____________________________  
-
-      // 2. PLACE LABELS
-
-              // COORDINATES AND COUNTRIES LABELS
-              const countries = {
-                type: 'FeatureCollection',
-                features: [
-                  { type: 'Feature', properties: { title: 'EGYPT'}, geometry: { type: 'Point', coordinates: [33.8083491, 30.467345] }},
-                  { type: 'Feature', properties: { title: 'ISRAEL'}, geometry: { type: 'Point', coordinates: [34.8758067, 30.9866664] }},
-                  { type: 'Feature', properties: { title: 'JORDAN'}, geometry: { type: 'Point', coordinates: [36.3655701, 30.683549] }},
-                  { type: 'Feature', properties: { title: 'IRAQ'}, geometry: { type: 'Point', coordinates: [39.560184, 33.315916] }},
-                  { type: 'Feature', properties: { title: 'SAUDI\nARABIA'}, geometry: { type: 'Point', coordinates: [37.742222, 29.656151] }}, 
-                  { type: 'Feature', properties: { title: 'SYRIA'}, geometry: { type: 'Point', coordinates: [36.9178121, 32.938151] }},
-                  { type: 'Feature', properties: { title: 'LEB.'}, geometry: { type: 'Point', coordinates: [35.5965731, 33.47613] }},
-                  { type: 'Feature', properties: { title: 'PAL.\nWEST BANK'}, geometry: { type: 'Point', coordinates: [35.2808101, 32.126807] }},
-                  { type: 'Feature', properties: { title: 'PAL.\nGAZA'}, geometry: { type: 'Point', coordinates: [34.288398, 31.497934] }}
-                ]
-              };
-
-              // PRODUCTION SITES COORDINATES
-              const productionSites = {
-                type: 'FeatureCollection',
-                features: [
-                  { type: 'Feature', properties: { title: 'Tajammouat' }, geometry: { type: 'Point', coordinates: [35.979728, 31.868797] }},
-                  { type: 'Feature', properties: { title: '' }, geometry: { type: 'Point', coordinates: [36.019838, 32.499705]}},
-                  { type: 'Feature', properties: { title: 'Aqaba' }, geometry: { type: 'Point', coordinates: [35.028429, 29.598449]}},
-                  { type: 'Feature', properties: { title: 'Mafraq' }, geometry: { type: 'Point', coordinates: [36.266308, 32.381423]}}, 
-                  { type: 'Feature', properties: { title: 'Dhulayl' }, geometry: { type: 'Point', coordinates: [36.291064, 32.121074]}} 
-                ]
-              };
-
-              // PRODUCTION SITES COORDINATES
-              const portSites = {
-                type: 'FeatureCollection',
-                features: [
-                  { type: 'Feature', properties: { title: 'Haifa' }, geometry: { type: 'Point', coordinates: [35.008376, 32.817597]}},
-                  { type: 'Feature', properties: { title: '' }, geometry: { type: 'Point', coordinates: [34.976266, 29.467778]}} 
-                ]
-              };
-
-              map_zoomout.on('load', () => {
-
-                //ADD CONTRIES LABELS TO THE MAP
-                  map_zoomout.addSource('countries', {
-                    type: 'geojson',
-                    data: countries
-                  });
-                  
-                  map_zoomout.addLayer({
-                    id: 'countries',
-                    type: 'symbol',
-                    source: 'countries',
-                    minzoom: 0,
-                    maxzoom: 15,
-                    layout: {
-                      'text-field': ['get', 'title'],
-                      'text-font': ['Oswald Stencil Bold'],
-                      'text-size': [
-                        'interpolate',
-                        ['linear'],
-                        ['zoom'],
-                        0, 20,
-                        15, 23
-                      ],
-                      'text-anchor': 'center',
-                      'text-offset': [0, 0]   
-                    },
-                    paint: {
-                      'text-color': '#000000',
-                      'text-halo-color': '#ffffff',
-                      'text-halo-width': 2,
-                      'text-halo-blur': 0
-                    }
-                  });
-
-                  //ADD PORTS LABELS TO THE MAP
-                  map_zoomout.addSource('portSites', {
-                    type: 'geojson',
-                    data: portSites
-                  });
-
-                  // Square marker load
-                  map_zoomout.loadImage('../assets/port.png', (error, image) => {
-                    if (error) throw error;
-                    if (!map_zoomout.hasImage('port-icon')) {
-                      map_zoomout.addImage('port-icon', image);
-                    }
-
-                    // Add the square marker layer
-                    map_zoomout.addLayer({
-                      id: 'portSites-layer',
-                      type: 'symbol',
-                      source: 'portSites',
-                      layout: {
-                        'icon-image': 'port-icon',
-                        'icon-size': [
-                          'interpolate',
-                          ['linear'],
-                          ['zoom'],
-                          0, 0.2,
-                          15, 0.4
-                        ],
-                        'icon-allow-overlap': true,
-                        'text-field': ['get', 'title'],
-                        'text-font': ['Source Code Pro Italic'],
-                        'text-size': [
-                          'interpolate',
-                          ['linear'],
-                          ['zoom'],
-                          0, 12,
-                          15, 20
-                        ],
-                        'text-anchor': 'left',
-                        'text-offset': [1, 0],
-                        'text-allow-overlap': true
-                      },
-                      paint: {
-                        'text-color': '#37445E',
-                        'text-halo-color': '#ffffff',
-                        'text-halo-width': 3,
-                        'text-halo-blur': 5
-                      }
-                    });
-                  });
-
-              // Add click listener for port sites
-              map_zoomout.on('click', 'portSites-layer', (e) => {
-                const feature = e.features[0];
-                const title = feature.properties.title;
-
-                // Only open popup if title is not empty
-                  const popupHTML = `
-                    <div class="mapboxgl-popup-content">
-                      <p><b>Container port</b></p>
-                      <p>Jordan’s garment industry mainly produces clothing for export to the US market under the Jordan-US Free Trade Agreement (JUSFTA). Producers located in Jordan import most machinery and production materials – such as yarn, cloth and accessories – from China and South Asia, mainly through Aqaba container port in the South of Jordan. As timely delivery to US brands is a central competitive advantage, the finished clothing is then primarily shipped from the Israeli sea port Haifa, which offers the fastest sailing times to the US. </p>
-                      <p>To read more about Jordan’s garment industry’s dependency on uninterrupted import and export routes, and how regional war and instability have thus impacted the industry, 
-                      <a href="https://merip.org/2025/01/hanging-by-a-thread/" target="_blank" style="color: blue; text-decoration: underline;">click here</a>.</p>
-            
-                    </div>
-                  `;
-
-                  new mapboxgl.Popup({ offset: 25 })
-                    .setLngLat(feature.geometry.coordinates)
-                    .setHTML(popupHTML)
-                    .addTo(map_zoomout);
-                });
-              // Change cursor to pointer when hovering
-              map_zoomout.on('mouseenter', 'portSites-layer', () => {
-                map_zoomout.getCanvas().style.cursor = 'pointer';
-              });
-              map_zoomout.on('mouseleave', 'portSites-layer', () => {
-                map_zoomout.getCanvas().style.cursor = '';
-              });
-
-                  // ADD THE PRODUCTION SITES SOURCE
-                  map_zoomout.addSource('productionSites', {
-                    type: 'geojson',
-                    data: productionSites
-                  });
-
-                  // Square marker load
-                  map_zoomout.loadImage('../assets/square-marker.png', (error, image) => {
-                    if (error) throw error;
-                    if (!map_zoomout.hasImage('square-icon')) {
-                      map_zoomout.addImage('square-icon', image);
-                    }
-
-                    // Add the square marker layer
-                    map_zoomout.addLayer({
-                      id: 'productionSites-layer',
-                      type: 'symbol',
-                      source: 'productionSites',
-                      layout: {
-                        'icon-image': 'square-icon',
-                        'icon-size': [
-                          'interpolate',
-                          ['linear'],
-                          ['zoom'],
-                          0, 0.2,
-                          15, 0.4
-                        ],
-                        'icon-allow-overlap': true,
-                        'text-field': ['get', 'title'],
-                        'text-font': ['Source Code Pro Italic'],
-                        'text-size': [
-                          'interpolate',
-                          ['linear'],
-                          ['zoom'],
-                          0, 12,
-                          15, 20
-                        ],
-                        'text-anchor': 'left',
-                        'text-offset': [1, 0],
-                        'text-allow-overlap': true
-                      },
-                      paint: {
-                        'text-color': '#000000',
-                        'text-halo-color': '#ffffff',
-                        'text-halo-width': 3,
-                        'text-halo-blur': 5
-                      }
-                    });
-                  });
-              });
-
-              // Add click listener for production sites
-              map_zoomout.on('click', 'productionSites-layer', (e) => {
-                const feature = e.features[0];
-                const title = feature.properties.title;
-
-                // Only open popup if title is not empty
-                if (title && title.trim() !== '') {
-                  const popupHTML = `
-                    <div class="mapboxgl-popup-content">
-                      <p><b>${title} - Main garment production site</b></p>
-                      <p>Most clothing factories in Jordan are clustered in the industrial zones you see mapped here. 
-                        Initially, these zones were established as so-called Qualified Industrial Zones (QIZs), 
-                        offering an advantageous export regime to industries promoting economic cooperation between Israel and Jordan 
-                        in the wake of the 1994 peace accords. While ‘free trade’ to the US is no longer tied to these production zones, 
-                        most garment producers have stayed to establish a dormitory migrant labour regime. 
-                        Dormitories thus accommodate tens of thousands of migrant workers in these spatially confined production sites 
-                        and diverse migrant businesses, clinics and marketplaces have developed in their surrounds. </p>
-                       <p><a href="https://www.jadaliyya.com/Details/46539" target="_blank" style="color: blue; text-decoration: underline;">
-                        Click here</a> to read more about migrants’ everyday life in Jordan’s industrial zones for clothing production.</p>
-            
-                    </div>
-                  `;
-
-                  new mapboxgl.Popup({ offset: 25 })
-                    .setLngLat(feature.geometry.coordinates)
-                    .setHTML(popupHTML)
-                    .addTo(map_zoomout);
-                }
-                else{
-                  flyZoomIn ();
-              }
-
-              });
-
-              // Change cursor to pointer when hovering
-              map_zoomout.on('mouseenter', 'productionSites-layer', () => {
-                map_zoomout.getCanvas().style.cursor = 'pointer';
-              });
-              map_zoomout.on('mouseleave', 'productionSites-layer', () => {
-                map_zoomout.getCanvas().style.cursor = '';
-              });
-              // 2. END
-
-      //   ____________________________  END ZOOM-OUT MAP ELEMENTS  ____________________________  
-
-
-      // SCALE
-
-          // Add scale control to the map
-          const scale = new mapboxgl.ScaleControl({
-            maxWidth: 100,      // optional
-            unit: 'metric'      // or 'imperial'
-          });
-          map.addControl(scale);
-
-          // Optionally update scale units dynamically
-          // scale.setUnit('imperial');
-
-          // Change the cursor to a pointer when the mouse is over the places layer.
-          map.on('mouseenter', 'csvData', () => {
-              map.getCanvas().style.cursor = 'pointer';
-          });
-      
-          // Change it back to a pointer when it leaves.
-          map.on('mouseleave', 'csvData', () => {
-              map.getCanvas().style.cursor = '';
-          });
-
-                  
-      </script>
-
-          
-</body>
-
+      <!-- END of zoom out map -->
+    </div> 
+    <!-- END of container -->
+
+    <!-- maps configs JS -->
+    <script src="../maps-configs.js"></script>
+    <!-- maps flyTo animations JS -->
+    <script src="../maps-animations.js"></script>
+    <!-- zoom in map elements JS -->
+    <script src="../map-zoom-in.js"></script>
+    <!-- zoom out map elements JS -->
+    <script src="../map-zoom-out.js"></script>
+    <!-- maps elements JS -->
+    <script src="../maps-elements.js"></script>
+    <!-- button interactivty JS <script src="../button-interactivity.js"></script>-->
+
+  </body>
 </html>

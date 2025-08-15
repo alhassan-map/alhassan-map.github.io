@@ -140,6 +140,60 @@ a:hover {
         height: 4.55vh;
         margin: 1em 3em;
       }
+
+      #zoomout-text .close-btn {
+          display:none;
+      }
+
+
+      /* Hide mobile toggles on desktop */
+      @media (min-width: 600px) {
+        .zoomout-info-btn {
+          display: none !important;
+        }
+        #zoomout-text .close-btn {
+          display: none !important;
+        }
+      }
+
+      @media (max-width: 600px)  {
+
+        #zoomout-text {
+          position: absolute;
+          top: 0;
+          right: 0;
+          height: 100vh;
+          width: 100vw;
+          background: #f3f1ef;
+          color: #333;
+          z-index: 100;
+          display: none;
+          transition: opacity 1s ease-in-out;
+        }
+
+        #zoomout-text p {
+          font-size: 1.6vh !important;
+          margin: 2.5em;
+        }
+
+        #zoomout-text .close-btn {
+          display:block;
+        }
+
+        .zoomout-info-btn {    
+          z-index: 100 !important;
+          cursor: pointer !important;
+          position: absolute !important;
+          right: 7vw !important;
+          bottom: 7vw !important; 
+          width: 14vw !important;
+        }
+
+        .zoomout-info-btn img{    
+          width: 100% !important;
+        }
+
+      }
  
       #zoomin-text {
         position: absolute;
@@ -168,6 +222,7 @@ a:hover {
         right: -12px;   /* near bottom-right corner */
         width: 0;
         height: 0;
+        pointer-events: none;
         border-style: solid;
         border-width: 12px 0 12px 12px; /* size of arrow */
         border-color: transparent transparent transparent black; /* arrow color */
@@ -339,8 +394,8 @@ a:hover {
     position: absolute;
     z-index: 2; /* behind  the legend but in fornt of the map*/ 
     pointer-events: none; /* allow clicks on the map even if the map div is not on the top*/ 
-    -webkit-mask-image: radial-gradient(circle at top left, rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, 0) 25%),
-                        radial-gradient(circle at bottom left, rgba(0, 0, 0, 1) 10%, rgba(0, 0, 0, 0) 30%);
+    -webkit-mask-image: radial-gradient(circle at 16% -28%, rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, 0) 27%),
+                        radial-gradient(circle at bottom left, rgba(0, 0, 0, 1) 14%, rgba(0, 0, 0, 0) 25%);
     -webkit-mask-composite: add;
     mask-image: radial-gradient(circle at 16% -28%, rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, 0) 27%),
                  radial-gradient(circle at bottom left, rgba(0, 0, 0, 1) 14%, rgba(0, 0, 0, 0) 25%);
@@ -353,6 +408,58 @@ a:hover {
     display:none;
     transition: opacity 1s ease-in-out;
   }
+
+  #zoomout-corner-gradient {
+    display:none;
+  }
+       /* Celulares */
+        @media (max-width: 600px)  {
+          #corner-gradient {
+              background-image: url('../assets/background.png');
+              background-color: white;
+              background-size: cover;
+              background-repeat: no-repeat;
+              background-position: center center;
+              margin: 0;
+              top: 0;
+              left: 0;
+              width: 100vw;
+              height: 100vh;
+              position: absolute;
+              z-index: 2; /* behind  the legend but in fornt of the map*/ 
+              pointer-events: none; /* allow clicks on the map even if the map div is not on the top*/ 
+              -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 8vh, rgba(0, 0, 0, 0) 16vh),
+                                  linear-gradient(to top, rgba(0, 0, 0, 1) 8vh, rgba(0, 0, 0, 0) 16vh);
+              -webkit-mask-composite: add;
+              mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 8vh, rgba(0, 0, 0, 0) 16vh),
+                          linear-gradient(to top, rgba(0, 0, 0, 1) 8vh, rgba(0, 0, 0, 0) 16vh);
+
+              mask-composite: add;
+            
+              /* These help the effect stretch properly */
+              -webkit-mask-size: 100% 100%;
+              mask-size: 100% 100%;
+              mask-repeat: no-repeat;
+              display:none;
+              transition: opacity 1s ease-in-out;
+            }
+
+          #zoomout-corner-gradient {    
+            background: 
+              linear-gradient(to bottom, #f3f1ef 8vh, transparent 16vh),
+              linear-gradient(to top, #f3f1ef 8vh, transparent 16vh);
+            margin: 0;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            position: absolute;
+            z-index: 2;
+            display: block;
+            transition: opacity 1s ease-in-out;
+            pointer-events: none;
+          }
+        }
 
 hr {
   border-top: 1px dashed black !important;
@@ -399,9 +506,37 @@ hr {
   max-width: 500px;
 }
 
+#legend_close{  
+  display: block;
+  background: none;
+  border: none;
+  font-size: 5vw;
+  cursor: pointer;
+  position: absolute;
+  bottom: 42vh;
+  right: 15%;
+  z-index: 100;
+}
+
+
 @media (min-width: 600px) {
   #legend-toggle{ 
     display: none !important;
+  }
+}
+
+@media (max-width: 600px) {
+  #legend_zoomout {
+    position: absolute;
+    width: 60vw !important;
+    bottom: 2.5vw;
+    left: 3vw;
+    z-index: 20;
+    display: block;
+    transition: opacity 2s ease-in-out;
+  }
+  #legend_zoomout img{
+    width: 100% !important;
   }
 }
 
@@ -474,9 +609,9 @@ hr {
           .iconbar-bottom {
             position: fixed;
             bottom: 5vw;       /* closer to bottom */
-            left: 5%;        /* start in middle */
+            left: 10%;        /* start in middle */
             height: auto;
-            width: 90vw !important;
+            width: 80vw !important;
             flex-direction: row; /* horizontal */
             justify-content: space-around;
             flex-wrap: nowrap;
@@ -484,31 +619,36 @@ hr {
 
           .iconbar-bottom > div {
             position: static !important;
-            width: 18% !important;
+            width: 15% !important;
             height: auto;
             display: block !important;
           }
-          /* Legend hidden initially on mobile */
+          /* Legend hidden initially on mobile */ 
           #legend { 
-            display: none;
-            position: fixed;
-            bottom: 15vh !important; /* just above icon bar */
-            border-bottom: 2px solid black; /* add black border */
-            left: 50%; /* Circular gradient fading to transparent */
-            background: radial-gradient(ellipse 100% 45% at 50% 68%, rgba(244, 235, 224, 1) 50%, rgba(255, 255, 255, 0) 100%);
-            padding: 70% 15% 8% 15%;
-            transform: translateX(-50%);
-            width: 100vw !important;
-            max-width: none;
-            /* relative positioning so ::after positions relative to this */
-             position: absolute !important;
+            display: none !important;
+            }
+          #legend_mobile { 
+              display: none;
+              position: fixed;
+              bottom: 15vh !important; /* just above icon bar */
+              border-bottom: 2px solid black; /* add black border */
+              left: 50%; /* Circular gradient fading to transparent */
+              background: radial-gradient(ellipse 100% 45% at 50% 68%, rgba(244, 235, 224, 1) 50%, rgba(255, 255, 255, 0) 100%);
+              padding: 70% 15% 8% 15%;
+              transform: translateX(-50%);
+              width: 100vw !important;
+              max-width: none;
+              /* relative positioning so ::after positions relative to this */
+              position: absolute !important;
+              z-index: 20;
+              transition: opacity 2s ease-in-out;
             }
                 /* Arrow tip */
-            #legend::after {
+            #legend_mobile::after {
               content: "";
               position: absolute;
               bottom: -2vh; /* push it outside bottom */
-              left: 70%;   /* near bottom-right corner */
+              left: 25%;   /* near bottom-right corner */
               width: 0;
               height: 0;
               border-style: solid;
@@ -516,7 +656,7 @@ hr {
               border-color: black transparent transparent transparent; /* arrow color */
             }
 
-          #legend img{ 
+          #legend_mobile img{ 
             width: 80% !important;
             height: 50% !important;
           }
@@ -620,6 +760,24 @@ hr {
   transform: translateX(-50%);
 }
 
+
+  /* Celulares */
+  @media (max-width: 600px) {
+    .mapboxgl-ctrl-scale {
+    background-color: transparent !important;
+    font-size: 10px !important;
+    border: 1px solid #000 !important;
+    border-bottom-color: transparent !important;
+    padding: 0 !important;
+    color: #333;
+    box-sizing: border-box;
+    bottom: 46vh;
+    left: 87vw !important;
+    transform: rotate(90deg) !important;
+    line-height: -3vw;
+    }
+  }
+  
 .sidebar a {
   text-decoration: none;
 }
