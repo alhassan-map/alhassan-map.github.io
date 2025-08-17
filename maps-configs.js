@@ -21,8 +21,8 @@ mapboxgl.accessToken = 'pk.eyJ1Ijoic2FyYWxnYyIsImEiOiJja2NjbTAyczkwNXA3Mnlscm5nb
 let zoom_intro;
 let center_intro;
 if (window.innerWidth < 600) { 
-    zoom_intro = 7.3;
-    center_intro = [35.8, 31.8]; 
+    zoom_intro = 7.7;
+    center_intro = [36, 32.5]; 
 } else if (window.innerWidth < 1024) { 
     zoom_intro = 6;
     center_intro = [37.1,31.3]; 
@@ -41,7 +41,7 @@ if (window.innerWidth < 600) {
 let zoom;
 let speed;
 if (window.innerWidth < 600) { // Smartphones
-    zoom = 15; speed = 32.5;
+    zoom = 14.2; speed = 32.5;
 } else if (window.innerWidth < 1024) { // Tablets
     zoom = 12.5; speed = 3.5;
 } else if (window.innerWidth < 1600) { // Notebooks

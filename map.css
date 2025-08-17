@@ -186,7 +186,7 @@ a:hover {
           position: absolute !important;
           right: 7vw !important;
           bottom: 7vw !important; 
-          width: 14vw !important;
+          width: 12vw !important;
         }
 
         .zoomout-info-btn img{    
@@ -251,13 +251,13 @@ a:hover {
         @media (max-width: 600px)  {
             #zoomin-text {
               position: absolute;
-              bottom: 15vh;
+              bottom: 23vw;
               right: 0;
-              height: auto;
+              height: 90vh;
               width: 100vw;
               background: #f4ebe0;
               color: #333;
-              z-index: 12;
+              z-index: 5 !important;
               /* pointer-events: none; /* allows clicking through to map */
               display: none;
               transition: opacity 1s ease-in-out;
@@ -265,7 +265,8 @@ a:hover {
               border-bottom: 2px solid black; /* add black border */
               box-sizing: border-box; /* include border in size */
               /* relative positioning so ::after positions relative to this */
-              position: absolute;
+              position: absolute;    
+              z-index: 200;
             }
                 /* Arrow tip */
             #zoomin-text::after {
@@ -279,6 +280,14 @@ a:hover {
               border-width: 12px 12px 0px 12px; /* size of arrow */
               border-color: black transparent transparent transparent; /* arrow color */
             }
+            .text-mobile{    
+              position: absolute;
+              bottom: 5vw;
+            }
+          #zoomin-text .close-btn { 
+              position: absolute;
+              top: 20vh;
+          }
         }
       
 
@@ -298,7 +307,6 @@ a:hover {
         border-bottom: 2px solid black; /* add black border */
         box-sizing: border-box; /* include border in size */
         /* relative positioning so ::after positions relative to this */
-        position: absolute;
       }
 
       /* Arrow tip */
@@ -341,13 +349,13 @@ a:hover {
         @media (max-width: 600px)  {
             #people-text {
               position: absolute;
-              bottom: 15vh;
+              bottom: 23vw;
               right: 0;
-              height: auto;
+              height: 90vh;
               width: 100vw;
               background: #f4ebe0;
               color: #333;
-              z-index: 12;
+              z-index: 5 !important;
               /* pointer-events: none; /* allows clicking through to map */
               display: none;
               transition: opacity 1s ease-in-out;
@@ -355,7 +363,6 @@ a:hover {
               border-bottom: 2px solid black; /* add black border */
               box-sizing: border-box; /* include border in size */
               /* relative positioning so ::after positions relative to this */
-              position: absolute;
             }
                 /* Arrow tip */
             #people-text::after {
@@ -368,6 +375,10 @@ a:hover {
               border-style: solid;
               border-width: 12px 12px 0px 12px; /* size of arrow */
               border-color: black transparent transparent transparent; /* arrow color */
+            }
+            #people-text .close-btn {
+              position: absolute;
+              top:15vh !important;
             }
         }
 
@@ -426,7 +437,7 @@ a:hover {
               width: 100vw;
               height: 100vh;
               position: absolute;
-              z-index: 2; /* behind  the legend but in fornt of the map*/ 
+              z-index: 10; /* behind  the legend but in fornt of the map*/ 
               pointer-events: none; /* allow clicks on the map even if the map div is not on the top*/ 
               -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 8vh, rgba(0, 0, 0, 0) 16vh),
                                   linear-gradient(to top, rgba(0, 0, 0, 1) 8vh, rgba(0, 0, 0, 0) 16vh);
@@ -510,11 +521,11 @@ hr {
   display: block;
   background: none;
   border: none;
-  font-size: 5vw;
+  font-size: 34px;
   cursor: pointer;
   position: absolute;
-  bottom: 42vh;
-  right: 15%;
+  top: 20vh;
+  right: 25px;
   z-index: 100;
 }
 
@@ -609,7 +620,7 @@ hr {
           .iconbar-bottom {
             position: fixed;
             bottom: 5vw;       /* closer to bottom */
-            left: 10%;        /* start in middle */
+            left: 10vw;        /* start in middle */
             height: auto;
             width: 80vw !important;
             flex-direction: row; /* horizontal */
@@ -630,17 +641,15 @@ hr {
           #legend_mobile { 
               display: none;
               position: fixed;
-              bottom: 15vh !important; /* just above icon bar */
+              height:90vh;
+              bottom: 23vw !important; /* just above icon bar */
               border-bottom: 2px solid black; /* add black border */
-              left: 50%; /* Circular gradient fading to transparent */
-              background: radial-gradient(ellipse 100% 45% at 50% 68%, rgba(244, 235, 224, 1) 50%, rgba(255, 255, 255, 0) 100%);
-              padding: 70% 15% 8% 15%;
-              transform: translateX(-50%);
+              background: #f4ebe0;
               width: 100vw !important;
               max-width: none;
               /* relative positioning so ::after positions relative to this */
               position: absolute !important;
-              z-index: 20;
+              z-index: 5;
               transition: opacity 2s ease-in-out;
             }
                 /* Arrow tip */
@@ -648,7 +657,7 @@ hr {
               content: "";
               position: absolute;
               bottom: -2vh; /* push it outside bottom */
-              left: 25%;   /* near bottom-right corner */
+              left: 17%;   /* near bottom-right corner */
               width: 0;
               height: 0;
               border-style: solid;
@@ -657,8 +666,11 @@ hr {
             }
 
           #legend_mobile img{ 
-            width: 80% !important;
-            height: 50% !important;
+            width: 90% !important;
+            height: auto !important;
+            position:absolute;
+            bottom:10%;
+            left:5%;
           }
         }
 
@@ -836,6 +848,7 @@ hr {
         @media (max-width: 600px) {
         #logo_in { 
             width: 80vw !important;
+            z-index: 15 !important;
           }
         }
 
@@ -977,6 +990,8 @@ h2 {
     text-transform: uppercase;
     padding-left: 0px;
     margin-left: 0px;
+    word-spacing: -5px;
+    letter-spacing: 0.5px; 
 }
 
 h2::selection{

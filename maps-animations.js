@@ -34,6 +34,7 @@ function flyZoomIn (){
     });
     document.getElementById('fly-button').style.display = 'none';
     document.getElementById('zoomout-text').style.display = 'none';
+    document.getElementsByClassName('zoomout-info-btn')[0].style.display = 'none'; // hide zoom out info button
     map.once('moveend', () => {
         map.setMaxBounds(bounds);
     });
@@ -103,8 +104,10 @@ document.getElementById('back-button').addEventListener('click', () => {
     zoomInText.style.display = 'none';
     hideZoominUI(); // Hide button + restore zoomin text
     hidePopup('zoomin-text');
+    hidePopup('zoomout-text');
     hidePopup('people-text');
     mapDiv.classList.remove('active');
+    document.getElementsByClassName('zoomout-info-btn')[0].style.display = 'block';
 
     // Remove bounds restriction
     map.setMaxBounds(null);
