@@ -147,7 +147,7 @@ a:hover {
 
 
       /* Hide mobile toggles on desktop */
-      @media (min-width: 600px) {
+      @media (min-width: 1024px) {
         .zoomout-info-btn {
           display: none !important;
         }
@@ -156,7 +156,7 @@ a:hover {
         }
       }
 
-      @media (max-width: 600px)  {
+      @media (max-width: 1024px)  {
 
         #zoomout-text {
           position: absolute;
@@ -247,8 +247,8 @@ a:hover {
         margin: 1em 2.5em;
       }
 
-        /* Celulares */
-        @media (max-width: 600px)  {
+        /* Mobile */
+        @media (max-width: 1024px)  {
             #zoomin-text {
               position: absolute;
               bottom: 23vw;
@@ -345,8 +345,8 @@ a:hover {
         margin: 1em 2.5em;
       }
 
-       /* Celulares */
-        @media (max-width: 600px)  {
+       /* Mobile */
+        @media (max-width: 1024px)  {
             #people-text {
               position: absolute;
               bottom: 23vw;
@@ -423,8 +423,8 @@ a:hover {
   #zoomout-corner-gradient {
     display:none;
   }
-       /* Celulares */
-        @media (max-width: 600px)  {
+       /* Mobile */
+        @media (max-width: 1024px)  {
           #corner-gradient {
               background-image: url('../assets/background.png');
               background-color: white;
@@ -530,13 +530,13 @@ hr {
 }
 
 
-@media (min-width: 600px) {
+@media (min-width: 1024px) {
   #legend-toggle{ 
     display: none !important;
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 1024px) {
   #legend_zoomout {
     position: absolute;
     width: 60vw !important;
@@ -571,8 +571,8 @@ hr {
   flex-direction: column;
   gap: 1.5vh;
 }
-        /* Celulares */
-        @media (max-width: 600px) {
+        /* Mobile */
+        @media (max-width: 1024px) {
         #custom-zoom-controls {
             display: none!important;
           }
@@ -614,8 +614,8 @@ hr {
   height: auto;
 }
 
-        /* Celulares */
-        @media (max-width: 600px) {
+        /* Mobile */
+        @media (max-width: 1024px) {
 
           .iconbar-bottom {
             position: fixed;
@@ -774,8 +774,8 @@ hr {
 }
 
 
-  /* Celulares */
-  @media (max-width: 600px) {
+  /* Mobile and tablet */
+  @media (max-width: 1024px) {
     .mapboxgl-ctrl-scale {
     background-color: transparent !important;
     font-size: 10px !important;
@@ -826,8 +826,8 @@ hr {
       width: 26vw !important;
       display:block;
 }
-        /* Celulares */
-        @media (max-width: 600px) {
+        /* Mobile */
+        @media (max-width: 1024px) {
         #logo_out { 
             width: 80vw !important;
           }
@@ -845,8 +845,8 @@ hr {
       width: 26vw !important;
       display:none;
 }
-        /* Celulares */
-        @media (max-width: 600px) {
+        /* Mobile */
+        @media (max-width: 1024px) {
         #logo_in { 
             width: 80vw !important;
             z-index: 15 !important;
@@ -895,7 +895,7 @@ p {
             }
         }
 
-        /* Celulares */
+        /* Mobile */
         @media (max-width: 600px) {
           p {
              font-size: 3vw !important;
@@ -920,22 +920,15 @@ a {
     bottom: 20px;
 }
 
-        /* Notebooks padrão */
+        /* Laptop */
         @media (max-width: 1600px) {
           a {
              font-size: 1.5vh !important;
           }
         }
 
-        /* Notebooks menores e tablets */
+        /* mobile and tablet */
         @media (max-width: 1024px) {
-          a {
-             font-size: 1.6vh !important;
-            }
-        }
-
-        /* Celulares */
-        @media (max-width: 600px) {
           a {
              font-size: 1.4vw !important;
           }
@@ -1059,7 +1052,7 @@ strong::selection{
     }
 
     /* On wider screens (tablet & desktop): side-by-side */
-    @media (min-width: 769px) {
+    @media (min-width: 1024px) {
       .popup-container {
         flex-direction: row;
         align-items: flex-start;
@@ -1099,7 +1092,7 @@ strong::selection{
           }
         }
 
-        /* Celulares */
+        /* Mobile */
         @media (max-width: 768px) {
           .mapboxgl-popup {
             max-width: 80% !important;

@@ -116,8 +116,8 @@ document.getElementById('back-button').addEventListener('click', () => {
 document.addEventListener("DOMContentLoaded", () => {
     const zoominText = document.getElementById('zoomin-text');
 
-    // Hide zoomin-text only on mobile (<600px)
-    if (window.innerWidth < 600) {
+    // Hide zoomin-text only on mobile (<1024px)
+    if (window.innerWidth < 1024) {
         zoominText.style.display = 'none';
     } else {
         zoominText.style.display = 'block'; // show on desktop/tablet

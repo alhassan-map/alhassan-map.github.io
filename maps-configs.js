@@ -29,12 +29,9 @@ if (aspectRatio > 2) {
 } 
 //otherwise define other zoom and center
 else {
-    if (window.innerWidth < 600) { 
+    if (window.innerWidth < 1024) { 
         zoom_intro = 7.7;
         center_intro = [36, 32.5]; 
-    } else if (window.innerWidth < 1024) { 
-        zoom_intro = 6;
-        center_intro = [37.1,31.3]; 
     } else if (window.innerWidth < 1400) {
         zoom_intro = 6.4;
         center_intro = [37.1,31.3]; 
@@ -51,10 +48,8 @@ else {
 //define zoom in and the speed of flyTo animations
 let zoom;
 let speed;
-if (window.innerWidth < 600) { // Smartphones
+if (window.innerWidth < 1024) { // mobile and tablet
     zoom = 14.2; speed = 32.5;
-} else if (window.innerWidth < 1024) { // Tablets
-    zoom = 12.5; speed = 3.5;
 } else if (window.innerWidth < 1600) { // Notebooks
     zoom = 14.5; speed = 4.5;
 } else { // Desktops
@@ -62,7 +57,7 @@ if (window.innerWidth < 600) { // Smartphones
 }
 
 // detect if is mobile width ≤ 600px
-const isMobile = window.matchMedia("(max-width: 600px)").matches;
+const isMobile = window.matchMedia("(max-width: 1024px)").matches;
 
 // bounds zoom out map
 const zoomoutBounds = [

@@ -7,8 +7,8 @@
     function hidePopup(id) {
         document.getElementById(id).style.display = 'none';
     }
-    // Hide zoomin-text only on mobile
-    if (window.innerWidth < 600) {
+    // Hide zoomin-text only on mobile and tablet
+    if (window.innerWidth < 1024) {
         document.getElementById('zoomin-text').style.display = 'none';
     }
     // Hide legend_mobile on page load
@@ -54,8 +54,8 @@
     function showZoominUI() {
 
     const zoominText = document.getElementById('zoomin-text');
-    // Only show zoomin-text if not on mobile
-    if (window.innerWidth >= 600) {
+    // Only show zoomin-text if not on mobile or tablet
+    if (window.innerWidth >= 1024) {
         zoominText.style.display = 'block';
     }
     else{
@@ -134,8 +134,8 @@ function makeGeoJSON(csvData) {
                                 +   `<p>` + e.features[0].properties.description + `</p>
                                   </div></div>`;
                 
-                // Center Popup on mobile
-                if (window.innerWidth < 600) {
+                // Center Popup on mobile and tablet
+                if (window.innerWidth < 1024) {
                     map.easeTo({
                         center: coordinates,
                         zoom: Math.max(map.getZoom(), 16),
