@@ -117,16 +117,22 @@ function makeGeoJSON(csvData) {
             
             map.on('click', 'csvData', function (e) {
                 var coordinates = e.features[0].geometry.coordinates.slice();
-                var description =  `<div style="width:100%; aspect-ratio: 16 / 9;">
-                                    <iframe width="100%" height="100%" 
-                                    src="https://www.youtube.com/embed/` + e.features[0].properties.videoID + 
-                                    `?autoplay=1&modestbranding=1&showinfo=0&modestbranding=1&rel=0&color=white&iv_load_policy=3&loop=1&playlist=` + e.features[0].properties.videoID + 
-                                    `"frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
-                                    allowfullscreen>
-                                    </iframe>
+                var description =  `<div class="popup-container">
+                                    <div class="video">
+                                        <div class="video-wrapper" style="padding-bottom:` + e.features[0].properties.padding + `">
+                                            <div style="width:100%;">                                            
+                                            <iframe width="100%" height="100%" 
+                                            src="https://www.youtube.com/embed/` + e.features[0].properties.videoID + 
+                                            `?autoplay=1&modestbranding=1&showinfo=0&modestbranding=1&rel=0&color=white&iv_load_policy=3&loop=1&playlist=` + e.features[0].properties.videoID + 
+                                            `"frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+                                            allowfullscreen></iframe>   
+                                            </div>
+                                        </div>
                                     </div>`
-                                + `<h2>` + e.features[0].properties.title + `</h2>`
-                                + `<p>` + e.features[0].properties.description + `</p>` ;
+                                + `<div class="text">
+                                    <h2>` + e.features[0].properties.title + `</h2>`
+                                +   `<p>` + e.features[0].properties.description + `</p>
+                                  </div></div>`;
                 
                 // Center Popup on mobile
                 if (window.innerWidth < 600) {
@@ -298,7 +304,7 @@ function makeGeoJSON(csvData) {
     });
         
     // ZOOM
-        map.addControl(new mapboxgl.NavigationControl(), 'top-right'); // disable map zoom when using scroll
+        map.addControl(new mapboxgl.NavigationControl(), 'top-right'); 
 
         document.getElementById("custom-zoom-in").addEventListener("click", () => {
         map.zoomIn();

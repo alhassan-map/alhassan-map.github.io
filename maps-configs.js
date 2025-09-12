@@ -20,22 +20,33 @@ mapboxgl.accessToken = 'pk.eyJ1Ijoic2FyYWxnYyIsImEiOiJja2NjbTAyczkwNXA3Mnlscm5nb
 //define the same zoom intro for both maps
 let zoom_intro;
 let center_intro;
-if (window.innerWidth < 600) { 
-    zoom_intro = 7.7;
-    center_intro = [36, 32.5]; 
-} else if (window.innerWidth < 1024) { 
-    zoom_intro = 6;
-    center_intro = [37.1,31.3]; 
-} else if (window.innerWidth < 1400) {
-    zoom_intro = 6.4;
-    center_intro = [37.1,31.3]; 
-} else if (window.innerWidth < 1600) {
-    zoom_intro = 6.8;
-    center_intro = [37.1,31.3]; 
-} else {
-    zoom_intro = 7.7;
-    center_intro = [37.1,31.3]; 
-}     
+
+//check if screen is super wide
+const aspectRatio = window.innerWidth / window.innerHeight;
+if (aspectRatio > 2) { 
+    zoom_intro = 8;
+    center_intro = [36.3,32.2]; 
+} 
+//otherwise define other zoom and center
+else {
+    if (window.innerWidth < 600) { 
+        zoom_intro = 7.7;
+        center_intro = [36, 32.5]; 
+    } else if (window.innerWidth < 1024) { 
+        zoom_intro = 6;
+        center_intro = [37.1,31.3]; 
+    } else if (window.innerWidth < 1400) {
+        zoom_intro = 6.4;
+        center_intro = [37.1,31.3]; 
+    } else if (window.innerWidth < 1600) {
+        zoom_intro = 6.8;
+        center_intro = [37.1,31.3]; 
+    } else {
+        zoom_intro = 7.7;
+        center_intro = [37.1,31.3]; 
+    }   
+}
+
 
 //define zoom in and the speed of flyTo animations
 let zoom;
@@ -50,14 +61,32 @@ if (window.innerWidth < 600) { // Smartphones
     zoom = 15.2; speed = 35.5;
 }
 
+// detect if is mobile width ≤ 600px
+const isMobile = window.matchMedia("(max-width: 600px)").matches;
+
+// bounds zoom out map
+const zoomoutBounds = [
+    [32.959, 29.185], // southwest corner
+    [41.8, 33.378]  // northeast corner
+];
+
 // Map 1 - zoom out style - map_zoomout
 const map_zoomout = new mapboxgl.Map({
     container: 'map_zoomout',
     style: 'mapbox://styles/saralgc/cme6yvb7r00rp01sc7fti6e9h',
     center: center_intro,
     zoom: zoom_intro,
-    interactive: false
+    maxBounds: zoomoutBounds,
+    interactive: true
 });
+
+
+map_zoomout.scrollZoom.disable();       // disable mouse wheel zoom
+map_zoomout.boxZoom.disable();          // disable box zoom
+map_zoomout.doubleClickZoom.disable();  // disable double click zoom
+map_zoomout.touchZoomRotate.disable();  // disable pinch zoom & rotate
+map_zoomout.dragPan.enable();    
+
 
 // Map 2 - zoom in style - map
 const map = new mapboxgl.Map({
@@ -94,6 +123,8 @@ map.on('mouseenter', 'csvData', () => {
 map.on('mouseleave', 'csvData', () => {
     map.getCanvas().style.cursor = '';
 });
-//   ____________________________  END OFELEMENTS ON BOTH MAPS  ____________________________ 
 
-            
+window.addEventListener("resize", () => {
+    location.reload(); // reloads the current page if the window is resized
+});
+//   ____________________________  END OFELEMENTS ON BOTH MAPS  ____________________________ 

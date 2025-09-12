@@ -52,7 +52,7 @@ a:hover {
 
     #map.active {
       pointer-events: auto;
-      }
+    }
 
       #fly-button {
         display: block;
@@ -232,8 +232,8 @@ a:hover {
         font-family: 'Source Code Pro', monospace !important;
         font-weight: 300 !important;
         font-style: italic !important;
-        font-size: 1.5vh !important;
-        line-height: 1.6;
+        font-size: 1.6vh !important;
+        line-height: 2.5vh;
         color: #333 !important;
         margin: 1.7em;
       }  
@@ -326,13 +326,13 @@ a:hover {
         font-family: 'Source Code Pro', monospace !important;
         font-weight: 300 !important;
         font-style: italic !important;
-        font-size: 1.4vh !important;
-        line-height: 1.6;
+        font-size: 1.7vh !important;
+        line-height: 2.5vh;
         color: #333 !important;
         margin: 1.7em;
       }  
        #people-text a {
-        font-size: 1.3vh !important;
+        font-size: 1.8vh !important;
         font-weight: 400 !important;
       }  
     
@@ -749,6 +749,7 @@ hr {
     position: absolute;
     top: 25px;
     right: 25px;
+    z-index: 100;
   }
   .close-btn:hover {
     color: lightgrey;
@@ -822,7 +823,7 @@ hr {
       pointer-events: none;
       border: none;
       z-index: 30;
-      width: 30vw !important;
+      width: 26vw !important;
       display:block;
 }
         /* Celulares */
@@ -841,7 +842,7 @@ hr {
       color: white;
       border: none;
       z-index: 100;
-      width: 30vw !important;
+      width: 26vw !important;
       display:none;
 }
         /* Celulares */
@@ -883,21 +884,21 @@ p {
         /* Notebooks padrão */
         @media (max-width: 1600px) {
           p {
-             font-size: 1.5vh !important;
+             font-size: 1.4vh !important;
           }
         }
 
         /* Notebooks menores e tablets */
         @media (max-width: 1024px) {
           p {
-             font-size: 1.6vh !important;
+             font-size: 1.2vh !important;
             }
         }
 
         /* Celulares */
         @media (max-width: 600px) {
           p {
-             font-size: 1.4vw !important;
+             font-size: 3vw !important;
           }
         }
 
@@ -1034,10 +1035,54 @@ strong::selection{
 
     /* Popup styling */
 
+    .popup-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      /* padding-bottom: 56.25%;  */
+      height: 0;
+      overflow: hidden;
+    }
+
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* On wider screens (tablet & desktop): side-by-side */
+    @media (min-width: 769px) {
+      .popup-container {
+        flex-direction: row;
+        align-items: flex-start;
+      }
+
+      .video, .text {
+       /* flex:1 */
+      }
+
+      .video {
+        width:60%;
+        margin: auto;
+      }
+      .text {
+        width:40%;
+      }
+    }
+
     .mapboxgl-popup {
       padding-bottom: 15px;
-      max-width: 35% !important; /* Telas bem grandes */
+      max-width: 50% !important; /* Telas bem grandes */
       z-index: 30;
+      max-height:40vh !important;
     }
 
         /* Notebooks padrão */

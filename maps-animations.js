@@ -77,6 +77,7 @@ document.getElementById('back-button').addEventListener('click', () => {
         document.getElementById('fly-button').style.display = 'block';
         document.getElementById('logo_out').style.display = 'block';
         document.getElementById('legend_zoomout').style.display = 'block';
+        document.getElementById('zoomout-text').style.display = 'block';
     });
 
     // Restore map visibility
@@ -84,7 +85,6 @@ document.getElementById('back-button').addEventListener('click', () => {
     const legend = document.getElementById('legend');
     const map_zoomoutDiv = document.getElementById('map_zoomout');
     const cornerDiv = document.getElementById('corner-gradient');
-    const zoomOutText = document.getElementById('zoomout-text');
     if (map_zoomout.getLayer('productionSites-layer')) {
      map_zoomout.setLayoutProperty('productionSites-layer', 'visibility', 'visible');
     }
@@ -100,11 +100,10 @@ document.getElementById('back-button').addEventListener('click', () => {
     legend.style.display = 'none';
     map_zoomoutDiv.style.opacity = 1;
     mapDiv.style.opacity = 0;
-    zoomOutText.style.display = 'block';
     zoomInText.style.display = 'none';
     hideZoominUI(); // Hide button + restore zoomin text
     hidePopup('zoomin-text');
-    hidePopup('zoomout-text');
+//    hidePopup('zoomout-text');
     hidePopup('people-text');
     mapDiv.classList.remove('active');
     document.getElementsByClassName('zoomout-info-btn')[0].style.display = 'block';
