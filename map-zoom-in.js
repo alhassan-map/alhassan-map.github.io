@@ -296,7 +296,7 @@ function makeGeoJSON(csvData) {
             paint: {
                 'text-color': '#000'
             },
-            minzoom: 15.5,
+            minzoom: 15,
             maxzoom: 20
             });
         });
